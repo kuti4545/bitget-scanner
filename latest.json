@@ -1,0 +1,243 @@
+{
+  "updated_at": "2026-08-30 15:01:52 TR",
+  "timeframe": "15m",
+  "scanned": 12,
+  "alert_score": 6.5,
+  "alerts_sent": 0,
+  "top": [
+    {
+      "symbol": "ZECUSDT",
+      "price": 839.62,
+      "change24h": 4.39,
+      "volume24h": 278912174.59089,
+      "direction": "SHORT",
+      "score": 3.7,
+      "rsi": 58.2,
+      "macd_hist": 0.30012,
+      "bb_percent": 0.78,
+      "wt1": 59.9,
+      "wt2": 61.5,
+      "mfi": 50.8,
+      "pvg": 0.0002,
+      "vol_ratio": 0.04,
+      "reasons": [
+        "RSI yüksek ve düşüyor 58.2",
+        "MACD histogram zayıflıyor",
+        "Üst banda yakın red",
+        "VuManChu overbought zayıflama"
+      ]
+    },
+    {
+      "symbol": "TRUMPUSDT",
+      "price": 2.539,
+      "change24h": -6.93,
+      "volume24h": 57921934.556,
+      "direction": "LONG",
+      "score": 3.1,
+      "rsi": 42.2,
+      "macd_hist": 0.000207,
+      "bb_percent": 0.37,
+      "wt1": -42.1,
+      "wt2": -52.0,
+      "mfi": 42.1,
+      "pvg": 0.0038,
+      "vol_ratio": 0.17,
+      "reasons": [
+        "MACD yukarı kesti",
+        "VuManChu oversold toparlanma"
+      ]
+    },
+    {
+      "symbol": "PROMUSDT",
+      "price": 6.9199,
+      "change24h": 31.86,
+      "volume24h": 89588032.69634,
+      "direction": "LONG",
+      "score": 2.9,
+      "rsi": 48.2,
+      "macd_hist": 8.6e-05,
+      "bb_percent": 0.45,
+      "wt1": -16.1,
+      "wt2": -27.5,
+      "mfi": 53.9,
+      "pvg": 0.0042,
+      "vol_ratio": 0.08,
+      "reasons": [
+        "MACD yukarı kesti"
+      ]
+    },
+    {
+      "symbol": "XRPUSDT",
+      "price": 1.3919,
+      "change24h": 0.69,
+      "volume24h": 173848448.7236,
+      "direction": "LONG",
+      "score": 1.7,
+      "rsi": 52.4,
+      "macd_hist": 0.000473,
+      "bb_percent": 0.67,
+      "wt1": 15.7,
+      "wt2": 6.8,
+      "mfi": 56.6,
+      "pvg": 0.0021,
+      "vol_ratio": 0.38,
+      "reasons": [
+        "MACD histogram yeşil ve güçleniyor",
+        "VuManChu para girişi MFI 57"
+      ]
+    },
+    {
+      "symbol": "SUIUSDT",
+      "price": 0.742,
+      "change24h": 1.05,
+      "volume24h": 31257595.39359,
+      "direction": "LONG",
+      "score": 1.7,
+      "rsi": 56.6,
+      "macd_hist": 0.00042,
+      "bb_percent": 0.83,
+      "wt1": 26.5,
+      "wt2": 14.5,
+      "mfi": 64.1,
+      "pvg": 0.0002,
+      "vol_ratio": 0.03,
+      "reasons": [
+        "MACD histogram yeşil ve güçleniyor",
+        "VuManChu para girişi MFI 64"
+      ]
+    },
+    {
+      "symbol": "ETHUSDT",
+      "price": 2460.36,
+      "change24h": 1.02,
+      "volume24h": 566623254.7216,
+      "direction": "SHORT",
+      "score": 1.6,
+      "rsi": 60.1,
+      "macd_hist": 0.54628,
+      "bb_percent": 0.93,
+      "wt1": 40.9,
+      "wt2": 35.6,
+      "mfi": 43.7,
+      "pvg": 0.0001,
+      "vol_ratio": 0.04,
+      "reasons": [
+        "Fiyat üst Bollinger bandında"
+      ]
+    },
+    {
+      "symbol": "BTCUSDT",
+      "price": 78184.7,
+      "change24h": 0.81,
+      "volume24h": 825044103.8571,
+      "direction": "LONG",
+      "score": 1.3,
+      "rsi": 57.8,
+      "macd_hist": 16.044481,
+      "bb_percent": 0.85,
+      "wt1": 30.3,
+      "wt2": 25.7,
+      "mfi": 41.9,
+      "pvg": 0.0003,
+      "vol_ratio": 0.1,
+      "reasons": [
+        "MACD histogram yeşil ve güçleniyor"
+      ]
+    },
+    {
+      "symbol": "HYPEUSDT",
+      "price": 83.594,
+      "change24h": 3.16,
+      "volume24h": 200407293.47202,
+      "direction": "LONG",
+      "score": 1.3,
+      "rsi": 61.7,
+      "macd_hist": 0.018078,
+      "bb_percent": 0.83,
+      "wt1": 46.0,
+      "wt2": 33.9,
+      "mfi": 38.1,
+      "pvg": 0.0014,
+      "vol_ratio": 0.31,
+      "reasons": [
+        "MACD histogram yeşil ve güçleniyor"
+      ]
+    },
+    {
+      "symbol": "SOLUSDT",
+      "price": 105.116,
+      "change24h": 1.62,
+      "volume24h": 238277623.1924,
+      "direction": "SHORT",
+      "score": 0.7,
+      "rsi": 55.3,
+      "macd_hist": 0.051169,
+      "bb_percent": 0.8,
+      "wt1": 27.5,
+      "wt2": 24.6,
+      "mfi": 39.4,
+      "pvg": 0.0005,
+      "vol_ratio": 0.07,
+      "reasons": [
+        "MACD histogram zayıflıyor"
+      ]
+    },
+    {
+      "symbol": "DOGEUSDT",
+      "price": 0.08493,
+      "change24h": 0.55,
+      "volume24h": 50388741.08012,
+      "direction": "SHORT",
+      "score": 0.7,
+      "rsi": 54.9,
+      "macd_hist": 4.8e-05,
+      "bb_percent": 0.8,
+      "wt1": 32.7,
+      "wt2": 31.3,
+      "mfi": 54.4,
+      "pvg": 0.0,
+      "vol_ratio": 0.01,
+      "reasons": [
+        "MACD histogram zayıflıyor"
+      ]
+    },
+    {
+      "symbol": "4USDT",
+      "price": 0.01922,
+      "change24h": 16.47,
+      "volume24h": 45647289.765483,
+      "direction": "LONG",
+      "score": 0.7,
+      "rsi": 51.4,
+      "macd_hist": -5e-05,
+      "bb_percent": 0.46,
+      "wt1": -0.3,
+      "wt2": -7.8,
+      "mfi": 37.9,
+      "pvg": -0.0008,
+      "vol_ratio": 0.05,
+      "reasons": [
+        "MACD histogram toparlanıyor"
+      ]
+    },
+    {
+      "symbol": "ENAUSDT",
+      "price": 0.15708,
+      "change24h": 1.59,
+      "volume24h": 33082890.0388,
+      "direction": "LONG",
+      "score": 0.7,
+      "rsi": 40.0,
+      "macd_hist": -9.4e-05,
+      "bb_percent": 0.28,
+      "wt1": -38.4,
+      "wt2": -35.6,
+      "mfi": 25.2,
+      "pvg": 0.0,
+      "vol_ratio": 0.02,
+      "reasons": [
+        "MACD histogram toparlanıyor"
+      ]
+    }
+  ]
+}

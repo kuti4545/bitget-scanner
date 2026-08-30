@@ -1,0 +1,242 @@
+#!/usr/bin/env python3
+"""Bitget USDT-M tarayıcı. GitHub Actions veya local çalışır."""
+
+from __future__ import annotations
+
+import json
+import time
+from concurrent.futures import ThreadPoolExecutor, as_completed
+from datetime import datetime, timezone, timedelta
+from pathlib import Path
+
+import pandas as pd
+import requests
+
+import config
+from score import analyze, attach_plan
+
+SESSION = requests.Session()
+SESSION.headers.update({"User-Agent": "bitget-leverage-scanner/1.0"})
+TR_TZ = timezone(timedelta(hours=3))
+BTC_15 = None
+BTC_1H = None
+
+
+def get_tickers() -> list[dict]:
+    url = f"{config.BITGET_BASE}/api/v2/mix/market/tickers"
+    r = SESSION.get(url, params={"productType": config.PRODUCT_TYPE}, timeout=20)
+    r.raise_for_status()
+    body = r.json()
+    if body.get("code") != "00000":
+        raise RuntimeError(body)
+    rows = body.get("data") or []
+    out = []
+    for row in rows:
+        try:
+            vol = float(row.get("usdtVolume") or 0)
+        except (TypeError, ValueError):
+            vol = 0.0
+        if vol < config.MIN_USDT_VOLUME_24H:
+            continue
+        out.append(row)
+    out.sort(key=lambda x: float(x.get("usdtVolume") or 0), reverse=True)
+    return out[: config.MAX_SYMBOLS]
+
+
+def get_candles(symbol: str, granularity: str | None = None, limit: int | None = None) -> pd.DataFrame | None:
+    url = f"{config.BITGET_BASE}/api/v2/mix/market/candles"
+    params = {
+        "symbol": symbol,
+        "granularity": granularity or config.TIMEFRAME,
+        "limit": str(limit or config.CANDLE_LIMIT),
+        "productType": config.PRODUCT_TYPE,
+    }
+    try:
+        r = SESSION.get(url, params=params, timeout=15)
+        r.raise_for_status()
+        body = r.json()
+        if body.get("code") != "00000":
+            return None
+        raw = body.get("data") or []
+        if len(raw) < 40:
+            return None
+        df = pd.DataFrame(
+            raw,
+            columns=["ts", "open", "high", "low", "close", "base_vol", "quote_vol"],
+        )
+        for col in ["open", "high", "low", "close", "base_vol", "quote_vol"]:
+            df[col] = pd.to_numeric(df[col], errors="coerce")
+        df["ts"] = pd.to_numeric(df["ts"], errors="coerce")
+        df = df.dropna().sort_values("ts").reset_index(drop=True)
+        df["volume"] = df["base_vol"]
+        return df
+    except requests.RequestException:
+        return None
+
+
+def load_state() -> dict:
+    path = Path(config.STATE_PATH)
+    if not path.exists():
+        return {"alerts": {}}
+    try:
+        return json.loads(path.read_text(encoding="utf-8"))
+    except json.JSONDecodeError:
+        return {"alerts": {}}
+
+
+def save_json(path: str, payload: dict) -> None:
+    p = Path(path)
+    p.parent.mkdir(parents=True, exist_ok=True)
+    p.write_text(json.dumps(payload, ensure_ascii=False, indent=2), encoding="utf-8")
+
+
+def cooldown_ok(state: dict, symbol: str, direction: str) -> bool:
+    key = f"{symbol}:{direction}"
+    last = (state.get("alerts") or {}).get(key)
+    if not last:
+        return True
+    try:
+        last_ts = datetime.fromisoformat(last)
+        if last_ts.tzinfo is None:
+            last_ts = last_ts.replace(tzinfo=timezone.utc)
+    except ValueError:
+        return True
+    return datetime.now(timezone.utc) - last_ts >= timedelta(minutes=config.ALERT_COOLDOWN_MIN)
+
+
+def mark_alert(state: dict, symbol: str, direction: str) -> None:
+    state.setdefault("alerts", {})
+    state["alerts"][f"{symbol}:{direction}"] = datetime.now(timezone.utc).isoformat()
+
+
+def send_telegram(text: str) -> bool:
+    token = config.TELEGRAM_BOT_TOKEN
+    chat = config.TELEGRAM_CHAT_ID
+    if not token or not chat:
+        print("Telegram ayarlı değil, mesaj basılıyor:\n", text)
+        return False
+    url = f"https://api.telegram.org/bot{token}/sendMessage"
+    payload = {
+        "chat_id": chat,
+        "text": text,
+        "parse_mode": "HTML",
+        "disable_web_page_preview": True,
+    }
+    try:
+        r = SESSION.post(url, json=payload, timeout=20)
+        if r.status_code != 200:
+            print("Telegram hata:", r.text[:300])
+            return False
+        return True
+    except requests.RequestException as exc:
+        print("Telegram exception:", exc)
+        return False
+
+
+def format_alert(sig) -> str:
+    arrow = "🟢 LONG" if sig.direction == "LONG" else "🔴 SHORT"
+    setup = sig.setup or "MOMENTUM"
+    vol_m = sig.volume24h / 1_000_000
+    reasons = "\n".join(f"• {x}" for x in sig.reasons) or "• Confluence"
+    style_tr = {
+        "kaçtı-retest-bekle": "KAÇTI — retest bekle, kovalama",
+        "bölgede-limit": "BÖLGEDE — limit emir",
+        "retest-bekle": "RETEST BEKLE — market kovalama",
+    }.get(sig.style, sig.style)
+    skip = f"\n⚠ {sig.skip_reason}\n" if sig.skip_reason else ""
+    return (
+        f"{arrow}  <b>{sig.symbol}</b>  [{setup}]  güven: <b>{sig.confidence}</b>\n"
+        f"Puan: <b>{sig.score}</b>/10   TF: {config.TIMEFRAME}+1H   BTC: {sig.btc_bias}\n"
+        f"Fiyat: <b>{sig.price}</b>   24s: {sig.change24h:+.2f}%   {vol_m:.1f}M\n"
+        f"{skip}"
+        f"\n"
+        f"<b>Plan</b>\n"
+        f"Stil: {style_tr}\n"
+        f"Entry: <b>{sig.entry_low} – {sig.entry_high}</b>\n"
+        f"SL: <b>{sig.sl}</b>\n"
+        f"TP1: <b>{sig.tp1}</b>  |  TP2: <b>{sig.tp2}</b>\n"
+        f"\n"
+        f"<b>300$ hesap</b>\n"
+        f"Marj: <b>${sig.margin_usd}</b>\n"
+        f"Kaldıraç: <b>{sig.leverage}x</b>\n"
+        f"Nominal: ${sig.notional_usd}\n"
+        f"SL olursa kayıp ≈ <b>${sig.sl_loss_usd}</b>\n"
+        f"TP1 ≈ +${sig.tp1_usd}   TP2 ≈ +${sig.tp2_usd}\n"
+        f"\n"
+        f"<b>Yorum</b>\n"
+        f"{sig.yorum}\n"
+        f"\n"
+        f"<b>Göstergeler</b>\n"
+        f"RSI {sig.rsi} | WT {sig.wt1}/{sig.wt2} | MFI {sig.mfi}\n"
+        f"%B {sig.bb_percent} | PVG {sig.pvg} | Vol x{sig.vol_ratio}\n"
+        f"{reasons}\n"
+        f"\n"
+        f"<i>Sinyal tavsiye değildir. 300$ hesapta 10x üstü yok. SL’siz girme.</i>"
+    )
+
+
+def scan_one(ticker: dict):
+    symbol = ticker.get("symbol")
+    df = get_candles(symbol)
+    if df is None:
+        return None
+    sig = analyze(symbol, df, ticker)
+    if not sig:
+        return None
+    df_1h = None
+    if sig.score >= 5.0:
+        df_1h = get_candles(symbol, granularity="1H", limit=80)
+    return attach_plan(sig, df, df_1h, BTC_15, BTC_1H)
+
+
+def run() -> dict:
+    global BTC_15, BTC_1H
+    started = datetime.now(TR_TZ)
+    BTC_15 = get_candles("BTCUSDT")
+    BTC_1H = get_candles("BTCUSDT", granularity="1H", limit=80)
+    tickers = get_tickers()
+    print(f"{len(tickers)} parite taranacak (min hacim {config.MIN_USDT_VOLUME_24H:.0f})")
+
+    signals = []
+    with ThreadPoolExecutor(max_workers=8) as pool:
+        futs = {pool.submit(scan_one, t): t.get("symbol") for t in tickers}
+        for fut in as_completed(futs):
+            try:
+                sig = fut.result()
+            except Exception as exc:
+                print("hata", futs[fut], exc)
+                continue
+            if sig:
+                signals.append(sig)
+            time.sleep(0.02)
+
+    signals.sort(key=lambda s: s.score, reverse=True)
+    state = load_state()
+    alerts = []
+    for sig in signals:
+        if sig.score < config.ALERT_SCORE:
+            continue
+        if not cooldown_ok(state, sig.symbol, sig.direction):
+            print("cooldown", sig.symbol, sig.direction, sig.score)
+            continue
+        ok = send_telegram(format_alert(sig))
+        if ok or not (config.TELEGRAM_BOT_TOKEN and config.TELEGRAM_CHAT_ID):
+            mark_alert(state, sig.symbol, sig.direction)
+            alerts.append(sig.to_dict())
+
+    snapshot = {
+        "updated_at": started.strftime("%Y-%m-%d %H:%M:%S TR"),
+        "timeframe": config.TIMEFRAME,
+        "scanned": len(tickers),
+        "alert_score": config.ALERT_SCORE,
+        "alerts_sent": len(alerts),
+        "top": [s.to_dict() for s in signals[:40]],
+    }
+    save_json(config.LATEST_PATH, snapshot)
+    save_json(config.STATE_PATH, state)
+    print(f"Bitti. Sinyal {len(signals)}, Telegram {len(alerts)}")
+    return snapshot
+
+
+if __name__ == "__main__":
+    run()

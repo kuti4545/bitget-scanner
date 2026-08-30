@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Bitget Kaldıraç Tarayıcı</title>
+  <style>
+    :root { --bg:#0b1020; --card:#151b2e; --line:#243049; --txt:#e8eefc; --mut:#8b97b3; --long:#22c55e; --short:#ef4444; }
+    * { box-sizing: border-box; }
+    body { margin:0; font-family: ui-sans-serif, system-ui, sans-serif; background:var(--bg); color:var(--txt); }
+    header { padding:18px 16px 8px; }
+    h1 { font-size:20px; margin:0 0 6px; }
+    .meta { color:var(--mut); font-size:13px; }
+    .grid { padding:8px 12px 28px; display:flex; flex-direction:column; gap:10px; }
+    .card { background:var(--card); border:1px solid var(--line); border-radius:14px; padding:12px; }
+    .row { display:flex; justify-content:space-between; align-items:center; gap:8px; }
+    .sym { font-weight:700; letter-spacing:.02em; }
+    .badge { font-size:12px; font-weight:700; padding:3px 8px; border-radius:999px; }
+    .LONG { background:#16351f; color:var(--long); }
+    .SHORT { background:#3a1616; color:var(--short); }
+    .score { font-size:22px; font-weight:800; }
+    .stats { display:grid; grid-template-columns:repeat(3,1fr); gap:6px; margin-top:10px; color:var(--mut); font-size:12px; }
+    .why { margin:8px 0 0; padding:0; list-style:none; font-size:13px; color:#c9d4ea; }
+    .why li { margin:3px 0; }
+    .empty { color:var(--mut); padding:24px 16px; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Bitget kaldıraç tarayıcı</h1>
+    <div class="meta" id="meta">Yükleniyor…</div>
+  </header>
+  <div class="grid" id="list"></div>
+  <script>
+    async function load() {
+      try {
+        const res = await fetch("latest.json?ts=" + Date.now());
+        const data = await res.json();
+        document.getElementById("meta").textContent =
+          `${data.updated_at} · ${data.scanned} parite · TF ${data.timeframe} · eşik ${data.alert_score}`;
+        const top = (data.top || []).filter(x => x.score >= 5);
+        const list = document.getElementById("list");
+        if (!top.length) {
+          list.innerHTML = '<div class="empty">Şu an yüksek puanlı setup yok. Telegram yine de 6.5+ gönderir.</div>';
+          return;
+        }
+        list.innerHTML = top.map(s => `
+          <article class="card">
+            <div class="row">
+              <div>
+                <div class="sym">${s.symbol}</div>
+                <span class="badge ${s.direction}">${s.direction}</span>
+              </div>
+              <div class="score">${s.score}</div>
+            </div>
+            <div class="stats">
+              <div>Fiyat ${s.price}</div>
+              <div>24s ${s.change24h}%</div>
+              <div>1H ${s.h1_trend || "-"}</div>
+              <div>Entry ${s.entry_low || "-"}–${s.entry_high || "-"}</div>
+              <div>SL ${s.sl || "-"}</div>
+              <div>TP1 ${s.tp1 || "-"} / TP2 ${s.tp2 || "-"}</div>
+            </div>
+            <ul class="why">${(s.reasons || []).map(r => `<li>• ${r}</li>`).join("")}</ul>
+            ${s.yorum ? `<p class="why">${s.yorum}</p>` : ""}
+          </article>
+        `).join("");
+      } catch (e) {
+        document.getElementById("meta").textContent = "Henüz tarama sonucu yok. Actions bir kez çalışınca dolar.";
+      }
+    }
+    load();
+    setInterval(load, 60000);
+  </script>
+</body>
+</html>
