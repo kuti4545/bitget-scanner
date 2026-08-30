@@ -1,6 +1,7 @@
 {
   "alerts": {
-    "LTCUSDT:LONG": "2026-08-30T23:00:31.944759+00:00"
+    "LTCUSDT:LONG": "2026-08-30T23:00:31.944759+00:00",
+    "SPYUSDT:LONG": "2026-08-30T23:21:31.324420+00:00"
   },
   "journal": [
     {
@@ -14,6 +15,22 @@
       "sl": 48.5519,
       "tp1": 49.0972,
       "ts": "2026-08-30T23:00:31.944782+00:00",
+      "p2h": null,
+      "p8h": null,
+      "r2h": null,
+      "r8h": null
+    },
+    {
+      "symbol": "SPYUSDT",
+      "direction": "LONG",
+      "score": 7.9,
+      "setup": "DIP",
+      "regime": "TREND",
+      "h4": "YUKARI",
+      "price": 769.0,
+      "sl": 768.715,
+      "tp1": 769.427,
+      "ts": "2026-08-30T23:21:31.324440+00:00",
       "p2h": null,
       "p8h": null,
       "r2h": null,
