@@ -49,6 +49,8 @@ class Signal:
     atr: float = 0.0
     style: str = "retest"
     h1_trend: str = "YOK"
+    h4_trend: str = "YOK"
+    regime: str = "YOK"
     yorum: str = ""
     setup: str = ""
     btc_bias: str = "YOK"
@@ -477,6 +479,7 @@ def attach_plan(
     df_1h: pd.DataFrame | None = None,
     btc_15: pd.DataFrame | None = None,
     btc_1h: pd.DataFrame | None = None,
+    df_4h: pd.DataFrame | None = None,
 ) -> Signal:
     """Tahtacı usulü: dip/tepe, BTC filtresi, 300$ risk."""
     price = float(df["close"].iloc[-1])
@@ -490,6 +493,13 @@ def attach_plan(
     swing_hi = float(df["high"].iloc[-look:].max())
     mid = float(sma(df["close"], 20).iloc[-1])
     sig.h1_trend = hour_trend(df_1h)
+    sig.h4_trend = hour_trend(df_4h)
+    if sig.h4_trend in ("YUKARI", "AŞAĞI"):
+        sig.regime = "TREND"
+    elif sig.h4_trend in ("ZAYIF YUKARI", "ZAYIF AŞAĞI", "YATAY"):
+        sig.regime = "RANGE"
+    else:
+        sig.regime = "YOK"
     sig.atr = _px(a)
 
     if sig.direction == "LONG":
@@ -536,6 +546,17 @@ def attach_plan(
     )
     if against:
         sig.score = round(max(sig.score - 1.5, 0), 2)
+    against_4h = (
+        (sig.direction == "LONG" and sig.h4_trend == "AŞAĞI")
+        or (sig.direction == "SHORT" and sig.h4_trend == "YUKARI")
+    )
+    with_4h = (
+        (sig.direction == "LONG" and "YUKARI" in sig.h4_trend)
+        or (sig.direction == "SHORT" and "AŞAĞI" in sig.h4_trend)
+    )
+    if against_4h:
+        sig.score = round(max(sig.score - 2.0, 0), 2)
+        sig.skip_reason = sig.skip_reason or "4H ters yon, islem yok."
     if sig.vol_ratio < 1.0:
         sig.score = round(min(sig.score, 6.9), 2)
 
@@ -550,6 +571,8 @@ def attach_plan(
         sig.reasons = (rev["tags"][:2] + sig.reasons)[:5]
     else:
         sig.setup = "MOMENTUM"
+    if with_4h and sig.setup in ("DIP", "TEPE"):
+        sig.score = round(min(10.0, sig.score + 0.3), 2)
 
     sig.btc_bias, sig.btc_note = btc_bias(btc_15, btc_1h)
     if sig.symbol.startswith("BTC"):
@@ -591,10 +614,15 @@ def attach_plan(
             bits.append("BTC toparlıyor, alt dip senaryosu güçlenir.")
         elif sig.setup == "TEPE" and sig.btc_bias in ("DUMP", "AŞAĞI"):
             bits.append("BTC zayıf, alt tepe short uyumlu.")
+    bits.append(f"4H {sig.h4_trend} rejim {sig.regime}.")
     if with_trend:
         bits.append(f"Coin 1H {sig.h1_trend}, sinyal ile aynı yön.")
     elif against:
         bits.append(f"Coin 1H {sig.h1_trend}, sinyale ters.")
+    if against_4h:
+        bits.append("4H ters; bu setup MAGMA tipi, ele.")
+    elif with_4h:
+        bits.append("4H ile aynı yön.")
     if sig.style == "kaçtı-retest-bekle":
         bits.append("Fiyat entryi geçmiş. Market kovalama.")
     elif sig.style == "bölgede-limit":

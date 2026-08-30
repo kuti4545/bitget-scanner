@@ -69,9 +69,33 @@ def get_candles(symbol: str, granularity: str | None = None, limit: int | None =
         df["ts"] = pd.to_numeric(df["ts"], errors="coerce")
         df = df.dropna().sort_values("ts").reset_index(drop=True)
         df["volume"] = df["base_vol"]
+        df = drop_unclosed(df, params["granularity"])
+        if df is None or len(df) < 40:
+            return None
         return df
     except requests.RequestException:
         return None
+
+
+GRAN_MS = {
+    "5m": 5 * 60 * 1000,
+    "15m": 15 * 60 * 1000,
+    "30m": 30 * 60 * 1000,
+    "1H": 60 * 60 * 1000,
+    "4H": 4 * 60 * 60 * 1000,
+}
+
+
+def drop_unclosed(df: pd.DataFrame, granularity: str) -> pd.DataFrame:
+    """Oluşan mumu at: MAGMA tipi yarıda 8.0 olmasın."""
+    width = GRAN_MS.get(granularity)
+    if not width or df.empty:
+        return df
+    last_open = int(df["ts"].iloc[-1])
+    now_ms = int(time.time() * 1000)
+    if now_ms < last_open + width - 8000:
+        return df.iloc[:-1].reset_index(drop=True)
+    return df
 
 
 def load_state() -> dict:
@@ -104,9 +128,68 @@ def cooldown_ok(state: dict, symbol: str, direction: str) -> bool:
     return datetime.now(timezone.utc) - last_ts >= timedelta(minutes=config.ALERT_COOLDOWN_MIN)
 
 
-def mark_alert(state: dict, symbol: str, direction: str) -> None:
+def mark_alert(state: dict, sig) -> None:
     state.setdefault("alerts", {})
-    state["alerts"][f"{symbol}:{direction}"] = datetime.now(timezone.utc).isoformat()
+    state["alerts"][f"{sig.symbol}:{sig.direction}"] = datetime.now(timezone.utc).isoformat()
+    state.setdefault("journal", [])
+    state["journal"].append(
+        {
+            "symbol": sig.symbol,
+            "direction": sig.direction,
+            "score": sig.score,
+            "setup": sig.setup,
+            "regime": getattr(sig, "regime", ""),
+            "h4": getattr(sig, "h4_trend", ""),
+            "price": sig.price,
+            "sl": sig.sl,
+            "tp1": sig.tp1,
+            "ts": datetime.now(timezone.utc).isoformat(),
+            "p2h": None,
+            "p8h": None,
+            "r2h": None,
+            "r8h": None,
+        }
+    )
+    state["journal"] = state["journal"][-40:]
+
+
+def _ret(entry: float, last: float, direction: str) -> float:
+    if not entry:
+        return 0.0
+    raw = (last / entry - 1) * 100
+    return raw if direction == "LONG" else -raw
+
+
+def update_journal(state: dict) -> list[str]:
+    """2s ve 8s sonra fiyatı yaz, Telegram ozeti icin satir uret."""
+    notes = []
+    now = datetime.now(timezone.utc)
+    for row in state.get("journal") or []:
+        try:
+            ts = datetime.fromisoformat(row["ts"])
+            if ts.tzinfo is None:
+                ts = ts.replace(tzinfo=timezone.utc)
+        except (KeyError, ValueError):
+            continue
+        age_h = (now - ts).total_seconds() / 3600
+        need_2 = age_h >= 2 and row.get("p2h") is None
+        need_8 = age_h >= 8 and row.get("p8h") is None
+        if not need_2 and not need_8:
+            continue
+        df = get_candles(row["symbol"], granularity="15m", limit=40)
+        if df is None or df.empty:
+            continue
+        last = float(df["close"].iloc[-1])
+        d = row["direction"]
+        if need_2:
+            row["p2h"] = last
+            row["r2h"] = round(_ret(row["price"], last, d), 2)
+            notes.append(f"{row['symbol']} {d} 2s {row['r2h']:+.2f}%")
+        if need_8:
+            row["p8h"] = last
+            row["r8h"] = round(_ret(row["price"], last, d), 2)
+            notes.append(f"{row['symbol']} {d} 8s {row['r8h']:+.2f}%")
+    return notes
 
 
 def send_telegram(text: str) -> bool:
@@ -146,7 +229,8 @@ def format_alert(sig) -> str:
     skip = f"\n⚠ {sig.skip_reason}\n" if sig.skip_reason else ""
     return (
         f"{arrow}  <b>{sig.symbol}</b>  [{setup}]  güven: <b>{sig.confidence}</b>\n"
-        f"Puan: <b>{sig.score}</b>/10   TF: {config.TIMEFRAME}+1H   BTC: {sig.btc_bias}\n"
+        f"Puan: <b>{sig.score}</b>/10   TF: {config.TIMEFRAME}+1H+4H   BTC: {sig.btc_bias}\n"
+        f"4H: {getattr(sig,'h4_trend','YOK')}   Rejim: {getattr(sig,'regime','YOK')}\n"
         f"Fiyat: <b>{sig.price}</b>   24s: {sig.change24h:+.2f}%   {vol_m:.1f}M\n"
         f"{skip}"
         f"\n"
@@ -200,6 +284,11 @@ def quality_gate(sig) -> str | None:
         return "cokusste long yok"
     if sig.vol_ratio < 0.8 and sig.score < 7.4:
         return "hacim zayif"
+    h4 = getattr(sig, "h4_trend", "YOK")
+    if sig.direction == "SHORT" and h4 == "YUKARI":
+        return "short 4H yukari"
+    if sig.direction == "LONG" and h4 == "AŞAĞI":
+        return "long 4H asagi"
     if sig.skip_reason:
         return sig.skip_reason
     return None
@@ -214,9 +303,11 @@ def scan_one(ticker: dict):
     if not sig:
         return None
     df_1h = None
+    df_4h = None
     if sig.score >= 5.0:
         df_1h = get_candles(symbol, granularity="1H", limit=80)
-    return attach_plan(sig, df, df_1h, BTC_15, BTC_1H)
+        df_4h = get_candles(symbol, granularity="4H", limit=80)
+    return attach_plan(sig, df, df_1h, BTC_15, BTC_1H, df_4h)
 
 
 def run() -> dict:
@@ -242,6 +333,10 @@ def run() -> dict:
 
     signals.sort(key=lambda s: s.score, reverse=True)
     state = load_state()
+    journal_notes = update_journal(state)
+    if journal_notes:
+        print("journal", " | ".join(journal_notes))
+        send_telegram("<b>Journal</b>\n" + "\n".join(journal_notes))
     alerts = []
     for sig in signals:
         blocked = quality_gate(sig)
@@ -256,7 +351,7 @@ def run() -> dict:
             continue
         ok = send_telegram(format_alert(sig))
         if ok or not (config.TELEGRAM_BOT_TOKEN and config.TELEGRAM_CHAT_ID):
-            mark_alert(state, sig.symbol, sig.direction)
+            mark_alert(state, sig)
             alerts.append(sig.to_dict())
 
     snapshot = {
