@@ -14,11 +14,12 @@ MIN_USDT_VOLUME_24H = float(os.getenv("MIN_USDT_VOLUME_24H", "2000000"))
 MAX_SYMBOLS = int(os.getenv("MAX_SYMBOLS", "80"))
 
 # 6.5 / 7 eşiğin
-ALERT_SCORE = float(os.getenv("ALERT_SCORE", "6.5"))
-STRONG_SCORE = float(os.getenv("STRONG_SCORE", "7.5"))
+ALERT_SCORE = float(os.getenv("ALERT_SCORE", "7.0"))
+STRONG_SCORE = float(os.getenv("STRONG_SCORE", "7.6"))
+MAX_ALERTS_PER_RUN = int(os.getenv("MAX_ALERTS_PER_RUN", "3"))
 
 # Aynı coin+yön tekrar spam olmasın
-ALERT_COOLDOWN_MIN = int(os.getenv("ALERT_COOLDOWN_MIN", "60"))
+ALERT_COOLDOWN_MIN = int(os.getenv("ALERT_COOLDOWN_MIN", "90"))
 
 TELEGRAM_BOT_TOKEN = os.getenv("TELEGRAM_BOT_TOKEN", "")
 TELEGRAM_CHAT_ID = os.getenv("TELEGRAM_CHAT_ID", "")
@@ -31,7 +32,8 @@ ACCOUNT_EQUITY = float(os.getenv("ACCOUNT_EQUITY", "300"))
 RISK_PCT_LOW = float(os.getenv("RISK_PCT_LOW", "0.01"))      # %1 = $3
 RISK_PCT_MID = float(os.getenv("RISK_PCT_MID", "0.015"))     # %1.5 = $4.5
 RISK_PCT_HIGH = float(os.getenv("RISK_PCT_HIGH", "0.02"))    # %2 = $6
-MAX_LEVERAGE_LOW = int(os.getenv("MAX_LEVERAGE_LOW", "5"))
-MAX_LEVERAGE_MID = int(os.getenv("MAX_LEVERAGE_MID", "8"))
-MAX_LEVERAGE_HIGH = int(os.getenv("MAX_LEVERAGE_HIGH", "10"))
+MAX_LEVERAGE_LOW = int(os.getenv("MAX_LEVERAGE_LOW", "3"))
+MAX_LEVERAGE_MID = int(os.getenv("MAX_LEVERAGE_MID", "5"))
+MAX_LEVERAGE_HIGH = int(os.getenv("MAX_LEVERAGE_HIGH", "5"))
+MAX_LEVERAGE_BTC = int(os.getenv("MAX_LEVERAGE_BTC", "8"))
 MIN_MARGIN_USD = float(os.getenv("MIN_MARGIN_USD", "15"))

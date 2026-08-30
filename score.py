@@ -418,16 +418,26 @@ def size_position(sig: Signal) -> Signal:
         or (sig.direction == "SHORT" and sig.btc_bias in ("DUMP", "AŞAĞI"))
     )
 
-    if against_btc or sig.style == "kaçtı-retest-bekle":
+    against_1h = (
+        (sig.direction == "LONG" and sig.h1_trend.startswith("AŞAĞI"))
+        or (sig.direction == "SHORT" and sig.h1_trend.startswith("YUKARI"))
+    )
+    weak_vol = sig.vol_ratio < 1.0
+
+    if against_btc or sig.style == "kaçtı-retest-bekle" or against_1h:
         sig.confidence = "DÜŞÜK"
         risk_pct = config.RISK_PCT_LOW
         max_lev = config.MAX_LEVERAGE_LOW
         if against_btc and sig.score < 7.2:
             sig.skip_reason = "BTC ters, fırsat zayıf. Bekle."
-    elif high_setup and with_btc:
+    elif high_setup and with_btc and not weak_vol and sig.symbol == "BTCUSDT":
         sig.confidence = "YÜKSEK"
         risk_pct = config.RISK_PCT_HIGH
-        max_lev = config.MAX_LEVERAGE_HIGH
+        max_lev = config.MAX_LEVERAGE_BTC
+    elif high_setup and with_btc and not weak_vol:
+        sig.confidence = "YÜKSEK"
+        risk_pct = config.RISK_PCT_MID
+        max_lev = config.MAX_LEVERAGE_MID
     elif mid_setup or with_btc:
         sig.confidence = "ORTA+"
         risk_pct = config.RISK_PCT_MID
@@ -436,6 +446,9 @@ def size_position(sig: Signal) -> Signal:
         sig.confidence = "ORTA"
         risk_pct = config.RISK_PCT_LOW
         max_lev = config.MAX_LEVERAGE_LOW
+    if weak_vol and sig.confidence == "YÜKSEK":
+        sig.confidence = "ORTA+"
+        max_lev = min(max_lev, config.MAX_LEVERAGE_MID)
 
     equity = config.ACCOUNT_EQUITY
     risk_usd = equity * risk_pct
@@ -522,7 +535,9 @@ def attach_plan(
         or (sig.direction == "SHORT" and "AŞAĞI" in sig.h1_trend)
     )
     if against:
-        sig.score = round(max(sig.score - 0.8, 0), 2)
+        sig.score = round(max(sig.score - 1.5, 0), 2)
+    if sig.vol_ratio < 1.0:
+        sig.score = round(min(sig.score, 6.9), 2)
 
     rev = reversal_flags(df)
     if sig.direction == "LONG" and rev["dip"] >= 1.2:

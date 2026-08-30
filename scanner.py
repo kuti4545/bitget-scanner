@@ -175,6 +175,36 @@ def format_alert(sig) -> str:
     )
 
 
+def quality_gate(sig) -> str | None:
+    """Sıkı kapı: spam ve MAGMA tipi 8.0 falling-knife kesilir."""
+    if sig.score < config.ALERT_SCORE:
+        return f"puan {sig.score}<{config.ALERT_SCORE}"
+    if sig.confidence == "DÜŞÜK":
+        return "guven dusuk"
+    if sig.style == "kaçtı-retest-bekle":
+        return "fiyat kacti"
+    if sig.setup == "MOMENTUM" and sig.score < 7.4:
+        return "sadece momentum"
+    if sig.direction == "SHORT" and sig.h1_trend == "YUKARI":
+        return "short ama 1H net yukari"
+    if sig.direction == "LONG" and sig.h1_trend == "AŞAĞI":
+        return "long ama 1H net asagi"
+    if sig.symbol != "BTCUSDT":
+        if sig.direction == "SHORT" and sig.btc_bias == "PUMP":
+            return "alt short BTC pompa"
+        if sig.direction == "LONG" and sig.btc_bias == "DUMP":
+            return "alt long BTC dump"
+    if sig.direction == "SHORT" and sig.change24h >= 10:
+        return "pompada short yok"
+    if sig.direction == "LONG" and sig.change24h <= -10:
+        return "cokusste long yok"
+    if sig.vol_ratio < 0.8 and sig.score < 7.4:
+        return "hacim zayif"
+    if sig.skip_reason:
+        return sig.skip_reason
+    return None
+
+
 def scan_one(ticker: dict):
     symbol = ticker.get("symbol")
     df = get_candles(symbol)
@@ -214,7 +244,12 @@ def run() -> dict:
     state = load_state()
     alerts = []
     for sig in signals:
-        if sig.score < config.ALERT_SCORE:
+        blocked = quality_gate(sig)
+        if blocked:
+            print("elendi", sig.symbol, sig.direction, sig.score, blocked)
+            continue
+        if len(alerts) >= getattr(config, "MAX_ALERTS_PER_RUN", 3):
+            print("tur limiti", sig.symbol, sig.score)
             continue
         if not cooldown_ok(state, sig.symbol, sig.direction):
             print("cooldown", sig.symbol, sig.direction, sig.score)
