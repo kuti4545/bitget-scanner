@@ -557,8 +557,6 @@ def attach_plan(
     if against_4h:
         sig.score = round(max(sig.score - 2.0, 0), 2)
         sig.skip_reason = sig.skip_reason or "4H ters yon, islem yok."
-    if sig.vol_ratio < 1.0:
-        sig.score = round(min(sig.score, 6.9), 2)
 
     rev = reversal_flags(df)
     if sig.direction == "LONG" and rev["dip"] >= 1.2:
@@ -573,6 +571,11 @@ def attach_plan(
         sig.setup = "MOMENTUM"
     if with_4h and sig.setup in ("DIP", "TEPE"):
         sig.score = round(min(10.0, sig.score + 0.3), 2)
+    # Hacim tavanı dip/tepe bonusundan SONRA. Yoksa RSI 23 + x0.3 hacim 7.9 oluyor.
+    if sig.vol_ratio < 1.0:
+        sig.score = round(min(sig.score, 6.6), 2)
+        if sig.confidence == "YÜKSEK":
+            sig.confidence = "ORTA"
 
     sig.btc_bias, sig.btc_note = btc_bias(btc_15, btc_1h)
     if sig.symbol.startswith("BTC"):

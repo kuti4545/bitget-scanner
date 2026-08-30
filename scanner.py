@@ -69,7 +69,9 @@ def get_candles(symbol: str, granularity: str | None = None, limit: int | None =
         df["ts"] = pd.to_numeric(df["ts"], errors="coerce")
         df = df.dropna().sort_values("ts").reset_index(drop=True)
         df["volume"] = df["base_vol"]
-        df = drop_unclosed(df, params["granularity"])
+        # Sadece kisa TF kapanmamis mumu at. 1H/4H atilirsa trend 3 saat gecikir (SPY hatasi).
+        if params["granularity"] in ("5m", "15m", "30m"):
+            df = drop_unclosed(df, params["granularity"])
         if df is None or len(df) < 40:
             return None
         return df
@@ -259,8 +261,18 @@ def format_alert(sig) -> str:
     )
 
 
+SKIP_SYMBOLS = {
+    "SPYUSDT", "QQQUSDT", "TSLAUSDT", "NVDAUSDT", "AAPLUSDT",
+    "MSFTUSDT", "AMZNUSDT", "METAUSDT", "GOOGUSDT", "MSTRUSDT",
+    "COINUSDT", "SOXLUSDT", "TQQQUSDT", "SPXUSDT", "SPCXUSDT",
+    "JP225USDT", "NAS100USDT", "US30USDT",
+}
+
+
 def quality_gate(sig) -> str | None:
     """Sıkı kapı: spam ve MAGMA tipi 8.0 falling-knife kesilir."""
+    if sig.symbol in SKIP_SYMBOLS:
+        return "hisse/endeks tarayicida yok"
     if sig.score < config.ALERT_SCORE:
         return f"puan {sig.score}<{config.ALERT_SCORE}"
     if sig.confidence == "DÜŞÜK":
@@ -282,8 +294,13 @@ def quality_gate(sig) -> str | None:
         return "pompada short yok"
     if sig.direction == "LONG" and sig.change24h <= -10:
         return "cokusste long yok"
-    if sig.vol_ratio < 0.8 and sig.score < 7.4:
+    if sig.vol_ratio < 0.8:
         return "hacim zayif"
+    if getattr(sig, "volume24h", 0) < 8_000_000:
+        return "24s hacim dusuk"
+    entry = ((sig.entry_low + sig.entry_high) / 2) or sig.price
+    if entry and sig.sl and abs(entry - sig.sl) / entry < 0.003:
+        return "sl cok dar"
     h4 = getattr(sig, "h4_trend", "YOK")
     if sig.direction == "SHORT" and h4 == "YUKARI":
         return "short 4H yukari"
