@@ -2,7 +2,8 @@
   "alerts": {
     "LTCUSDT:LONG": "2026-08-30T23:00:31.944759+00:00",
     "SPYUSDT:LONG": "2026-08-30T23:21:31.324420+00:00",
-    "UNIUSDT:LONG": "2026-08-31T00:19:36.518641+00:00"
+    "UNIUSDT:LONG": "2026-08-31T00:19:36.518641+00:00",
+    "PROMUSDT:LONG": "2026-08-31T00:26:28.558930+00:00"
   },
   "journal": [
     {
@@ -48,6 +49,22 @@
       "sl": 5.0343,
       "tp1": 5.3386,
       "ts": "2026-08-31T00:19:36.518669+00:00",
+      "p2h": null,
+      "p8h": null,
+      "r2h": null,
+      "r8h": null
+    },
+    {
+      "symbol": "PROMUSDT",
+      "direction": "LONG",
+      "score": 8.2,
+      "setup": "DIP",
+      "regime": "TREND",
+      "h4": "YUKARI",
+      "price": 6.4977,
+      "sl": 6.3107,
+      "tp1": 6.7781,
+      "ts": "2026-08-31T00:26:28.558953+00:00",
       "p2h": null,
       "p8h": null,
       "r2h": null,
