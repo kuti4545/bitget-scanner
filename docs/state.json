@@ -10,7 +10,9 @@
     "KORUUSDT:SHORT": "2026-09-01T00:15:34.849140+00:00",
     "KORUUSDT:LONG": "2026-09-01T00:52:38.516312+00:00",
     "PUMPUSDT:SHORT": "2026-09-01T01:24:45.007650+00:00",
-    "XMRUSDT:LONG": "2026-09-01T03:12:20.396389+00:00"
+    "XMRUSDT:LONG": "2026-09-01T03:12:20.396389+00:00",
+    "DOGEUSDT:SHORT": "2026-09-01T06:30:56.423224+00:00",
+    "ONDOUSDT:SHORT": "2026-09-01T06:30:56.642515+00:00"
   },
   "journal": [
     {
@@ -184,6 +186,38 @@
       "sl": 504.529,
       "tp1": 532.581,
       "ts": "2026-09-01T03:12:20.396413+00:00",
+      "p2h": null,
+      "p8h": null,
+      "r2h": null,
+      "r8h": null
+    },
+    {
+      "symbol": "DOGEUSDT",
+      "direction": "SHORT",
+      "score": 7.8,
+      "setup": "TEPE",
+      "regime": "TREND",
+      "h4": "AŞAĞI",
+      "price": 0.08354,
+      "sl": 0.083967,
+      "tp1": 0.082899,
+      "ts": "2026-09-01T06:30:56.423250+00:00",
+      "p2h": null,
+      "p8h": null,
+      "r2h": null,
+      "r8h": null
+    },
+    {
+      "symbol": "ONDOUSDT",
+      "direction": "SHORT",
+      "score": 7.8,
+      "setup": "TEPE",
+      "regime": "TREND",
+      "h4": "AŞAĞI",
+      "price": 0.3511,
+      "sl": 0.354832,
+      "tp1": 0.345503,
+      "ts": "2026-09-01T06:30:56.642543+00:00",
       "p2h": null,
       "p8h": null,
       "r2h": null,
