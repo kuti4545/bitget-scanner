@@ -6,7 +6,8 @@
     "PROMUSDT:LONG": "2026-08-31T00:26:28.558930+00:00",
     "SOXSUSDT:LONG": "2026-08-31T07:03:11.127564+00:00",
     "MUUSDT:SHORT": "2026-08-31T08:35:00.543965+00:00",
-    "BCHUSDT:SHORT": "2026-08-31T19:19:12.730184+00:00"
+    "BCHUSDT:SHORT": "2026-08-31T19:19:12.730184+00:00",
+    "KORUUSDT:SHORT": "2026-09-01T00:15:34.849140+00:00"
   },
   "journal": [
     {
@@ -116,6 +117,22 @@
       "sl": 249.726,
       "tp1": 245.785,
       "ts": "2026-08-31T19:19:12.730206+00:00",
+      "p2h": null,
+      "p8h": null,
+      "r2h": null,
+      "r8h": null
+    },
+    {
+      "symbol": "KORUUSDT",
+      "direction": "SHORT",
+      "score": 7.48,
+      "setup": "MOMENTUM",
+      "regime": "RANGE",
+      "h4": "ZAYIF AŞAĞI",
+      "price": 20.795,
+      "sl": 21.1541,
+      "tp1": 20.2945,
+      "ts": "2026-09-01T00:15:34.849164+00:00",
       "p2h": null,
       "p8h": null,
       "r2h": null,
