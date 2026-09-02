@@ -18,7 +18,8 @@
     "1000BONKUSDT:LONG": "2026-09-02T01:19:53.992537+00:00",
     "CLUSDT:LONG": "2026-09-02T08:31:35.571358+00:00",
     "XAGUSDT:SHORT": "2026-09-02T14:32:26.244633+00:00",
-    "XAUUSDT:SHORT": "2026-09-02T14:45:45.100830+00:00"
+    "XAUUSDT:SHORT": "2026-09-02T14:45:45.100830+00:00",
+    "SKHYNIXUSDT:SHORT": "2026-09-02T20:04:03.033753+00:00"
   },
   "journal": [
     {
@@ -320,6 +321,22 @@
       "sl": 4404.74,
       "tp1": 4370.4,
       "ts": "2026-09-02T14:45:45.100849+00:00",
+      "p2h": null,
+      "p8h": null,
+      "r2h": null,
+      "r8h": null
+    },
+    {
+      "symbol": "SKHYNIXUSDT",
+      "direction": "SHORT",
+      "score": 7.3,
+      "setup": "TEPE",
+      "regime": "RANGE",
+      "h4": "ZAYIF YUKARI",
+      "price": 1215.4,
+      "sl": 1219.79,
+      "tp1": 1208.81,
+      "ts": "2026-09-02T20:04:03.033780+00:00",
       "p2h": null,
       "p8h": null,
       "r2h": null,
