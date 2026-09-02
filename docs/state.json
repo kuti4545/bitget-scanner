@@ -14,7 +14,8 @@
     "DOGEUSDT:SHORT": "2026-09-01T06:30:56.423224+00:00",
     "ONDOUSDT:SHORT": "2026-09-01T06:30:56.642515+00:00",
     "SKHYUSDT:LONG": "2026-09-01T09:53:32.821089+00:00",
-    "SHEINUSDT:SHORT": "2026-09-02T00:50:30.625055+00:00"
+    "SHEINUSDT:SHORT": "2026-09-02T00:50:30.625055+00:00",
+    "1000BONKUSDT:LONG": "2026-09-02T01:19:53.992537+00:00"
   },
   "journal": [
     {
@@ -252,6 +253,22 @@
       "sl": 6.0529,
       "tp1": 5.9732,
       "ts": "2026-09-02T00:50:30.625078+00:00",
+      "p2h": null,
+      "p8h": null,
+      "r2h": null,
+      "r8h": null
+    },
+    {
+      "symbol": "1000BONKUSDT",
+      "direction": "LONG",
+      "score": 7.44,
+      "setup": "MOMENTUM",
+      "regime": "RANGE",
+      "h4": "ZAYIF AŞAĞI",
+      "price": 0.002975,
+      "sl": 0.00293032,
+      "tp1": 0.00303634,
+      "ts": "2026-09-02T01:19:53.992553+00:00",
       "p2h": null,
       "p8h": null,
       "r2h": null,
