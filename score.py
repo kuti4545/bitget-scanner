@@ -28,6 +28,8 @@ class Signal:
     price: float
     change24h: float
     volume24h: float
+    high24h: float = 0.0
+    low24h: float = 0.0
     direction: str
     score: float
     rsi: float
@@ -122,19 +124,19 @@ def analyze(symbol: str, df: pd.DataFrame, ticker: dict) -> Signal | None:
     if r <= 30 and rs > 0:
         long_pts.append(1.7)
         reasons_l.append(f"RSI aşırı satım dönüş {r:.1f}")
-    elif r < 42 and rs > 0:
+    elif r <= 32:
         long_pts.append(1.2)
-        reasons_l.append(f"RSI düşük ve yükseliyor {r:.1f}")
-    elif r < 50 and rs > 0:
-        long_pts.append(0.6)
+        reasons_l.append(f"RSI dip {r:.1f}")
+    elif r < 38 and rs > 0:
+        long_pts.append(0.4)
     if r >= 70 and rs < 0:
         short_pts.append(1.7)
         reasons_s.append(f"RSI aşırı alım dönüş {r:.1f}")
-    elif r > 58 and rs < 0:
+    elif r >= 68:
         short_pts.append(1.2)
-        reasons_s.append(f"RSI yüksek ve düşüyor {r:.1f}")
-    elif r > 50 and rs < 0:
-        short_pts.append(0.6)
+        reasons_s.append(f"RSI tepe {r:.1f}")
+    elif r > 62 and rs < 0:
+        short_pts.append(0.4)
 
     # --- MACD (max 1.7) ---
     if vals["macd_cross"] == 1:
@@ -253,12 +255,22 @@ def analyze(symbol: str, df: pd.DataFrame, ticker: dict) -> Signal | None:
         vol24 = float(ticker.get("usdtVolume") or 0)
     except (TypeError, ValueError):
         vol24 = 0.0
+    try:
+        high24 = float(ticker.get("high24h") or 0)
+    except (TypeError, ValueError):
+        high24 = 0.0
+    try:
+        low24 = float(ticker.get("low24h") or 0)
+    except (TypeError, ValueError):
+        low24 = 0.0
 
     return Signal(
         symbol=symbol,
         price=vals["close"],
         change24h=round(chg, 2),
         volume24h=vol24,
+        high24h=high24,
+        low24h=low24,
         direction=direction,
         score=round(score, 2),
         rsi=round(vals["rsi"], 1),
@@ -559,11 +571,24 @@ def attach_plan(
         sig.skip_reason = sig.skip_reason or "4H ters yon, islem yok."
 
     rev = reversal_flags(df)
-    if sig.direction == "LONG" and rev["dip"] >= 1.2:
+    rsi_now = float(sig.rsi)
+    wt_now = float(sig.wt1)
+    # DIP: RSI gerçek dip + VuManChu oversold. Sadece WT yetmez (BTW 41 RSI).
+    if (
+        sig.direction == "LONG"
+        and rev["dip"] >= 1.2
+        and rsi_now <= 32
+        and wt_now <= -53
+    ):
         sig.setup = "DIP"
         sig.score = round(min(10.0, sig.score + min(rev["dip"], 1.6)), 2)
         sig.reasons = (rev["tags"][:2] + sig.reasons)[:5]
-    elif sig.direction == "SHORT" and rev["tepe"] >= 1.2:
+    elif (
+        sig.direction == "SHORT"
+        and rev["tepe"] >= 1.2
+        and rsi_now >= 68
+        and wt_now >= 53
+    ):
         sig.setup = "TEPE"
         sig.score = round(min(10.0, sig.score + min(rev["tepe"], 1.6)), 2)
         sig.reasons = (rev["tags"][:2] + sig.reasons)[:5]

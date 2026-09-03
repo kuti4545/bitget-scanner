@@ -36,8 +36,8 @@ jobs:
           MIN_USDT_VOLUME_24H: "2000000"
           MAX_SYMBOLS: "80"
           ALERT_SCORE: "7.0"
-          MAX_ALERTS_PER_RUN: "3"
-          ALERT_COOLDOWN_MIN: "90"
+          MAX_ALERTS_PER_RUN: "2"
+          ALERT_COOLDOWN_MIN: "180"
           ACCOUNT_EQUITY: "300"
         run: python scanner.py
 

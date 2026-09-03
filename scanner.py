@@ -117,17 +117,22 @@ def save_json(path: str, payload: dict) -> None:
 
 
 def cooldown_ok(state: dict, symbol: str, direction: str) -> bool:
-    key = f"{symbol}:{direction}"
-    last = (state.get("alerts") or {}).get(key)
-    if not last:
-        return True
-    try:
-        last_ts = datetime.fromisoformat(last)
-        if last_ts.tzinfo is None:
-            last_ts = last_ts.replace(tzinfo=timezone.utc)
-    except ValueError:
-        return True
-    return datetime.now(timezone.utc) - last_ts >= timedelta(minutes=config.ALERT_COOLDOWN_MIN)
+    """Ayni coin herhangi bir yon 3s icinde tekrar etmesin (KORU long+short)."""
+    alerts = state.get("alerts") or {}
+    now = datetime.now(timezone.utc)
+    wait = timedelta(minutes=max(config.ALERT_COOLDOWN_MIN, 180))
+    for key, last in alerts.items():
+        if not key.startswith(f"{symbol}:"):
+            continue
+        try:
+            last_ts = datetime.fromisoformat(last)
+            if last_ts.tzinfo is None:
+                last_ts = last_ts.replace(tzinfo=timezone.utc)
+        except ValueError:
+            continue
+        if now - last_ts < wait:
+            return False
+    return True
 
 
 def mark_alert(state: dict, sig) -> None:
@@ -153,6 +158,84 @@ def mark_alert(state: dict, sig) -> None:
         }
     )
     state["journal"] = state["journal"][-40:]
+    if sig.style in ("retest-bekle", "kaçtı-retest-bekle"):
+        state.setdefault("pending", [])
+        state["pending"] = [
+            p for p in state["pending"]
+            if not (p.get("symbol") == sig.symbol and p.get("direction") == sig.direction)
+        ]
+        state["pending"].append(
+            {
+                "symbol": sig.symbol,
+                "direction": sig.direction,
+                "entry_low": sig.entry_low,
+                "entry_high": sig.entry_high,
+                "sl": sig.sl,
+                "tp1": sig.tp1,
+                "tp2": sig.tp2,
+                "score": sig.score,
+                "setup": sig.setup,
+                "ts": datetime.now(timezone.utc).isoformat(),
+            }
+        )
+        state["pending"] = state["pending"][-20:]
+
+
+def format_now_enter(p: dict, price: float) -> str:
+    arrow = "🟢 LONG" if p["direction"] == "LONG" else "🔴 SHORT"
+    return (
+        f"⏰ <b>ŞİMDİ GİR</b>  {arrow}  <b>{p['symbol']}</b>  [{p.get('setup','')}]\n"
+        f"Fiyat bandına geldi: <b>{price}</b>\n"
+        f"Entry: {p['entry_low']} – {p['entry_high']}\n"
+        f"SL: <b>{p['sl']}</b>   TP1: {p['tp1']}   TP2: {p.get('tp2','')}\n"
+        f"Kovalama bititi, limit/market küçük boy. SL aynı saniye."
+    )
+
+
+def check_pending(state: dict, tickers: list[dict]) -> list[str]:
+    """Beklenen entry gelince ikinci uyari."""
+    by_sym = {t.get("symbol"): t for t in tickers}
+    now = datetime.now(timezone.utc)
+    keep = []
+    fired = []
+    for p in state.get("pending") or []:
+        try:
+            ts = datetime.fromisoformat(p["ts"])
+            if ts.tzinfo is None:
+                ts = ts.replace(tzinfo=timezone.utc)
+        except (KeyError, ValueError):
+            continue
+        if now - ts > timedelta(hours=8):
+            print("pending sure doldu", p.get("symbol"))
+            continue
+        row = by_sym.get(p["symbol"])
+        if not row:
+            keep.append(p)
+            continue
+        try:
+            px = float(row.get("lastPr") or 0)
+        except (TypeError, ValueError):
+            keep.append(p)
+            continue
+        lo, hi, sl = float(p["entry_low"]), float(p["entry_high"]), float(p["sl"])
+        if lo > hi:
+            lo, hi = hi, lo
+        if p["direction"] == "LONG":
+            stopped = sl and px <= sl
+            hit = lo <= px <= hi * 1.001
+        else:
+            stopped = sl and px >= sl
+            hit = hi * 0.999 <= px <= hi or lo <= px <= hi
+        if stopped:
+            print("pending SL", p["symbol"], px)
+            continue
+        if hit:
+            send_telegram(format_now_enter(p, px))
+            fired.append(f"{p['symbol']} {p['direction']} {px}")
+            continue
+        keep.append(p)
+    state["pending"] = keep
+    return fired
 
 
 def _ret(entry: float, last: float, direction: str) -> float:
@@ -178,7 +261,7 @@ def update_journal(state: dict) -> list[str]:
         need_8 = age_h >= 8 and row.get("p8h") is None
         if not need_2 and not need_8:
             continue
-        df = get_candles(row["symbol"], granularity="15m", limit=40)
+        df = get_candles(row["symbol"], granularity="15m", limit=80)
         if df is None or df.empty:
             continue
         last = float(df["close"].iloc[-1])
@@ -264,8 +347,9 @@ def format_alert(sig) -> str:
 SKIP_SYMBOLS = {
     "SPYUSDT", "QQQUSDT", "TSLAUSDT", "NVDAUSDT", "AAPLUSDT",
     "MSFTUSDT", "AMZNUSDT", "METAUSDT", "GOOGUSDT", "MSTRUSDT",
-    "COINUSDT", "SOXLUSDT", "TQQQUSDT", "SPXUSDT", "SPCXUSDT",
-    "JP225USDT", "NAS100USDT", "US30USDT",
+    "COINUSDT", "SOXLUSDT", "SOXSUSDT", "TQQQUSDT", "SPXUSDT", "SPCXUSDT",
+    "JP225USDT", "NAS100USDT", "US30USDT", "MUUSDT", "SKHYUSDT",
+    "SKHYNIXUSDT", "AMDUSDT", "INTCUSDT", "CRCLUSDT",
 }
 
 
@@ -277,10 +361,19 @@ def quality_gate(sig) -> str | None:
         return f"puan {sig.score}<{config.ALERT_SCORE}"
     if sig.confidence == "DÜŞÜK":
         return "guven dusuk"
-    if sig.style == "kaçtı-retest-bekle":
-        return "fiyat kacti"
-    if sig.setup == "MOMENTUM" and sig.score < 7.4:
+    # kacti/retest ilk mesaj gitsin; band gelince "SIMDI GIR" ayrica gelir.
+    if sig.setup == "MOMENTUM":
         return "sadece momentum"
+    if sig.direction == "LONG" and sig.setup == "DIP":
+        if sig.rsi > 32:
+            return "DIP ama RSI dip degil"
+        if sig.wt1 > -53:
+            return "DIP ama VuManChu desteklemiyor"
+    if sig.direction == "SHORT" and sig.setup == "TEPE":
+        if sig.rsi < 68:
+            return "TEPE ama RSI tepe degil"
+        if sig.wt1 < 53:
+            return "TEPE ama VuManChu desteklemiyor"
     if sig.direction == "SHORT" and sig.h1_trend == "YUKARI":
         return "short ama 1H net yukari"
     if sig.direction == "LONG" and sig.h1_trend == "AŞAĞI":
@@ -294,9 +387,20 @@ def quality_gate(sig) -> str | None:
         return "pompada short yok"
     if sig.direction == "LONG" and sig.change24h <= -10:
         return "cokusste long yok"
+    high24 = getattr(sig, "high24h", 0) or 0
+    low24 = getattr(sig, "low24h", 0) or 0
+    px = sig.price or 0
+    if high24 > 0 and low24 > 0:
+        rng = (high24 - low24) / low24
+        if rng >= 0.25 and sig.symbol != "BTCUSDT":
+            return "24s range pompa/dump"
+        if sig.direction == "LONG" and (high24 - px) / high24 >= 0.12:
+            return "24s tepeden dustu"
+        if sig.direction == "SHORT" and (px - low24) / low24 >= 0.12:
+            return "24s dipten zippladi"
     if sig.vol_ratio < 0.8:
         return "hacim zayif"
-    if getattr(sig, "volume24h", 0) < 8_000_000:
+    if getattr(sig, "volume24h", 0) < 15_000_000:
         return "24s hacim dusuk"
     entry = ((sig.entry_low + sig.entry_high) / 2) or sig.price
     if entry and sig.sl and abs(entry - sig.sl) / entry < 0.003:
@@ -350,6 +454,9 @@ def run() -> dict:
 
     signals.sort(key=lambda s: s.score, reverse=True)
     state = load_state()
+    entered = check_pending(state, tickers)
+    if entered:
+        print("simdi gir", " | ".join(entered))
     journal_notes = update_journal(state)
     if journal_notes:
         print("journal", " | ".join(journal_notes))

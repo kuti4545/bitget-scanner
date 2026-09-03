@@ -19,7 +19,7 @@ STRONG_SCORE = float(os.getenv("STRONG_SCORE", "7.6"))
 MAX_ALERTS_PER_RUN = int(os.getenv("MAX_ALERTS_PER_RUN", "3"))
 
 # Aynı coin+yön tekrar spam olmasın
-ALERT_COOLDOWN_MIN = int(os.getenv("ALERT_COOLDOWN_MIN", "90"))
+ALERT_COOLDOWN_MIN = int(os.getenv("ALERT_COOLDOWN_MIN", "180"))
 
 TELEGRAM_BOT_TOKEN = os.getenv("TELEGRAM_BOT_TOKEN", "")
 TELEGRAM_CHAT_ID = os.getenv("TELEGRAM_CHAT_ID", "")
