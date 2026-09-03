@@ -20,7 +20,8 @@
     "XAGUSDT:SHORT": "2026-09-02T14:32:26.244633+00:00",
     "XAUUSDT:SHORT": "2026-09-02T14:45:45.100830+00:00",
     "SKHYNIXUSDT:SHORT": "2026-09-02T20:04:03.033753+00:00",
-    "DRAMUSDT:SHORT": "2026-09-02T20:19:25.277562+00:00"
+    "DRAMUSDT:SHORT": "2026-09-02T20:19:25.277562+00:00",
+    "WLDUSDT:SHORT": "2026-09-03T00:50:46.459410+00:00"
   },
   "journal": [
     {
@@ -354,6 +355,22 @@
       "sl": 56.4321,
       "tp1": 55.6519,
       "ts": "2026-09-02T20:19:25.277588+00:00",
+      "p2h": null,
+      "p8h": null,
+      "r2h": null,
+      "r8h": null
+    },
+    {
+      "symbol": "WLDUSDT",
+      "direction": "SHORT",
+      "score": 7.2,
+      "setup": "TEPE",
+      "regime": "RANGE",
+      "h4": "ZAYIF YUKARI",
+      "price": 0.3654,
+      "sl": 0.373586,
+      "tp1": 0.353121,
+      "ts": "2026-09-03T00:50:46.459433+00:00",
       "p2h": null,
       "p8h": null,
       "r2h": null,
