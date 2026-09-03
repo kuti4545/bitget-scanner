@@ -28,8 +28,6 @@ class Signal:
     price: float
     change24h: float
     volume24h: float
-    high24h: float = 0.0
-    low24h: float = 0.0
     direction: str
     score: float
     rsi: float
@@ -66,6 +64,8 @@ class Signal:
     tp1_usd: float = 0.0
     tp2_usd: float = 0.0
     skip_reason: str = ""
+    high24h: float = 0.0
+    low24h: float = 0.0
 
     def to_dict(self):
         d = asdict(self)
