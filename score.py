@@ -450,8 +450,8 @@ def size_position(sig: Signal) -> Signal:
         max_lev = config.MAX_LEVERAGE_BTC
     elif high_setup and with_btc and not weak_vol:
         sig.confidence = "YÜKSEK"
-        risk_pct = config.RISK_PCT_MID
-        max_lev = config.MAX_LEVERAGE_MID
+        risk_pct = config.RISK_PCT_HIGH
+        max_lev = config.MAX_LEVERAGE_HIGH
     elif mid_setup or with_btc:
         sig.confidence = "ORTA+"
         risk_pct = config.RISK_PCT_MID

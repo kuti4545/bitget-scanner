@@ -120,7 +120,7 @@ def cooldown_ok(state: dict, symbol: str, direction: str) -> bool:
     """Ayni coin herhangi bir yon 3s icinde tekrar etmesin (KORU long+short)."""
     alerts = state.get("alerts") or {}
     now = datetime.now(timezone.utc)
-    wait = timedelta(minutes=max(config.ALERT_COOLDOWN_MIN, 180))
+    wait = timedelta(minutes=max(config.ALERT_COOLDOWN_MIN, 5))
     for key, last in alerts.items():
         if not key.startswith(f"{symbol}:"):
             continue
@@ -225,7 +225,7 @@ def check_pending(state: dict, tickers: list[dict]) -> list[str]:
             hit = lo <= px <= hi * 1.001
         else:
             stopped = sl and px >= sl
-            hit = hi * 0.999 <= px <= hi or lo <= px <= hi
+            hit = lo * 0.999 <= px <= hi
         if stopped:
             print("pending SL", p["symbol"], px)
             continue
