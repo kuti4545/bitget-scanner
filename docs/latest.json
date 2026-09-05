@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-09-05 20:45:38 TR",
+  "updated_at": "2026-09-05 20:52:49 TR",
   "timeframe": "15m",
   "scanned": 80,
   "alert_score": 7.0,
@@ -8,8 +8,8 @@
     {
       "symbol": "4USDT",
       "price": 0.032943,
-      "change24h": 58.61,
-      "volume24h": 18151556.141949,
+      "change24h": 57.14,
+      "volume24h": 18180356.709159,
       "direction": "SHORT",
       "score": 6.4,
       "rsi": 77.5,
@@ -53,13 +53,13 @@
       "tp2_usd": 7.5,
       "skip_reason": "",
       "high24h": 0.033302,
-      "low24h": 0.020729
+      "low24h": 0.020865
     },
     {
       "symbol": "牛来USDT",
       "price": 0.13609,
-      "change24h": 79.47,
-      "volume24h": 13970953.5997,
+      "change24h": 70.14,
+      "volume24h": 14131337.21364,
       "direction": "SHORT",
       "score": 6.3,
       "rsi": 74.5,
@@ -103,13 +103,13 @@
       "tp2_usd": 7.5,
       "skip_reason": "",
       "high24h": 0.1403,
-      "low24h": 0.07724
+      "low24h": 0.07824
     },
     {
       "symbol": "BTCUSDT",
       "price": 80014.1,
-      "change24h": 0.73,
-      "volume24h": 777266211.71048,
+      "change24h": 0.87,
+      "volume24h": 772016699.03779,
       "direction": "SHORT",
       "score": 5.7,
       "rsi": 68.7,
@@ -158,8 +158,8 @@
     {
       "symbol": "MSTRUSDT",
       "price": 144.68,
-      "change24h": 1.97,
-      "volume24h": 29845252.6032,
+      "change24h": 2.02,
+      "volume24h": 29793021.7548,
       "direction": "SHORT",
       "score": 5.6,
       "rsi": 80.1,
@@ -203,13 +203,13 @@
       "tp2_usd": 1.98,
       "skip_reason": "",
       "high24h": 145.02,
-      "low24h": 141.69
+      "low24h": 141.7
     },
     {
       "symbol": "BNBUSDT",
       "price": 775.97,
-      "change24h": 8.27,
-      "volume24h": 49053075.5919,
+      "change24h": 8.49,
+      "volume24h": 49252893.9241,
       "direction": "SHORT",
       "score": 5.0,
       "rsi": 73.4,
@@ -258,8 +258,8 @@
     {
       "symbol": "DOGEUSDT",
       "price": 0.08917,
-      "change24h": 5.97,
-      "volume24h": 76756513.41405,
+      "change24h": 6.73,
+      "volume24h": 77734248.52386,
       "direction": "SHORT",
       "score": 4.9,
       "rsi": 72.9,
@@ -301,14 +301,14 @@
       "tp1_usd": 1.86,
       "tp2_usd": 3.1,
       "skip_reason": "",
-      "high24h": 0.08959,
-      "low24h": 0.08394
+      "high24h": 0.08968,
+      "low24h": 0.08395
     },
     {
       "symbol": "LTCUSDT",
       "price": 54.73,
-      "change24h": 8.77,
-      "volume24h": 14739390.457,
+      "change24h": 9.2,
+      "volume24h": 14760953.105,
       "direction": "SHORT",
       "score": 4.9,
       "rsi": 71.0,
@@ -350,14 +350,14 @@
       "tp1_usd": 1.19,
       "tp2_usd": 1.98,
       "skip_reason": "",
-      "high24h": 54.84,
+      "high24h": 54.87,
       "low24h": 50.22
     },
     {
       "symbol": "BUSDT",
       "price": 0.1823,
-      "change24h": 39.71,
-      "volume24h": 5073115.4974,
+      "change24h": 39.4,
+      "volume24h": 5090645.7962,
       "direction": "LONG",
       "score": 4.9,
       "rsi": 59.4,
@@ -405,8 +405,8 @@
     {
       "symbol": "ADAUSDT",
       "price": 0.2187,
-      "change24h": 3.55,
-      "volume24h": 21694171.2485,
+      "change24h": 3.88,
+      "volume24h": 21785678.9559,
       "direction": "SHORT",
       "score": 4.7,
       "rsi": 66.9,
@@ -447,14 +447,14 @@
       "tp1_usd": 1.19,
       "tp2_usd": 1.98,
       "skip_reason": "",
-      "high24h": 0.2193,
+      "high24h": 0.2194,
       "low24h": 0.209
     },
     {
       "symbol": "APRUSDT",
       "price": 0.23892,
-      "change24h": 10.73,
-      "volume24h": 2947675.19045,
+      "change24h": 10.32,
+      "volume24h": 2946837.07052,
       "direction": "SHORT",
       "score": 4.7,
       "rsi": 52.8,
@@ -502,8 +502,8 @@
     {
       "symbol": "NVDAUSDT",
       "price": 231.27,
-      "change24h": 0.37,
-      "volume24h": 2884026.1477,
+      "change24h": 0.36,
+      "volume24h": 2869743.9529,
       "direction": "SHORT",
       "score": 4.6,
       "rsi": 74.2,
@@ -552,8 +552,8 @@
     {
       "symbol": "ETHUSDT",
       "price": 2475.85,
-      "change24h": 1.28,
-      "volume24h": 592703086.7521,
+      "change24h": 1.46,
+      "volume24h": 592366288.7425,
       "direction": "SHORT",
       "score": 4.3,
       "rsi": 74.4,
@@ -602,8 +602,8 @@
     {
       "symbol": "UNIUSDT",
       "price": 6.827,
-      "change24h": 10.3,
-      "volume24h": 21714040.365,
+      "change24h": 9.63,
+      "volume24h": 21792892.106,
       "direction": "LONG",
       "score": 4.3,
       "rsi": 81.9,
@@ -650,8 +650,8 @@
     {
       "symbol": "NEARUSDT",
       "price": 2.2315,
-      "change24h": 13.06,
-      "volume24h": 42099776.1226,
+      "change24h": 14.21,
+      "volume24h": 42028590.1701,
       "direction": "LONG",
       "score": 4.21,
       "rsi": 59.9,
@@ -694,13 +694,13 @@
       "tp2_usd": 11.25,
       "skip_reason": "",
       "high24h": 2.2881,
-      "low24h": 1.9683
+      "low24h": 1.9697
     },
     {
       "symbol": "BCHUSDT",
       "price": 256.65,
       "change24h": 2.43,
-      "volume24h": 6944485.7925,
+      "volume24h": 7082353.2193,
       "direction": "LONG",
       "score": 4.2,
       "rsi": 76.1,
@@ -742,14 +742,14 @@
       "tp1_usd": 6.75,
       "tp2_usd": 11.25,
       "skip_reason": "",
-      "high24h": 257.53,
+      "high24h": 258.89,
       "low24h": 244.57
     },
     {
       "symbol": "LITUSDT",
       "price": 4.817,
-      "change24h": 0.4,
-      "volume24h": 3008561.375,
+      "change24h": 1.7,
+      "volume24h": 2985348.392,
       "direction": "LONG",
       "score": 3.8,
       "rsi": 65.3,
@@ -796,8 +796,8 @@
     {
       "symbol": "PEPEUSDT",
       "price": 3.5851e-06,
-      "change24h": 1.82,
-      "volume24h": 22013445.9341521,
+      "change24h": 2.12,
+      "volume24h": 22082987.7456352,
       "direction": "SHORT",
       "score": 3.7,
       "rsi": 58.9,
@@ -844,8 +844,8 @@
     {
       "symbol": "TSLAUSDT",
       "price": 356.43,
-      "change24h": 1.19,
-      "volume24h": 6705321.1929,
+      "change24h": 1.05,
+      "volume24h": 6778117.2755,
       "direction": "LONG",
       "score": 3.7,
       "rsi": 72.5,
@@ -887,13 +887,13 @@
       "tp2_usd": 3.3,
       "skip_reason": "",
       "high24h": 356.62,
-      "low24h": 352.15
+      "low24h": 352.28
     },
     {
       "symbol": "BEUSDT",
       "price": 265.49,
-      "change24h": 8.67,
-      "volume24h": 4002157.5611,
+      "change24h": 8.38,
+      "volume24h": 3997801.9608,
       "direction": "SHORT",
       "score": 3.4,
       "rsi": 54.2,
@@ -940,8 +940,8 @@
     {
       "symbol": "MARSCOINUSDT",
       "price": 0.25584,
-      "change24h": 42.46,
-      "volume24h": 90107588.3382,
+      "change24h": 43.74,
+      "volume24h": 90571699.17059,
       "direction": "LONG",
       "score": 3.3,
       "rsi": 64.9,
@@ -982,14 +982,14 @@
       "tp1_usd": 6.75,
       "tp2_usd": 11.25,
       "skip_reason": "",
-      "high24h": 0.26578,
+      "high24h": 0.26622,
       "low24h": 0.16988
     },
     {
       "symbol": "PONSUSDT",
       "price": 0.94417,
-      "change24h": 27.06,
-      "volume24h": 57433441.00965,
+      "change24h": 30.45,
+      "volume24h": 57578844.1218,
       "direction": "SHORT",
       "score": 3.3,
       "rsi": 58.7,
@@ -1035,8 +1035,8 @@
     {
       "symbol": "FLOCKUSDT",
       "price": 0.05252,
-      "change24h": -7.42,
-      "volume24h": 12870461.56363,
+      "change24h": -8.72,
+      "volume24h": 12822434.53843,
       "direction": "SHORT",
       "score": 3.3,
       "rsi": 40.1,
@@ -1083,8 +1083,8 @@
     {
       "symbol": "MAGMAUSDT",
       "price": 0.26965,
-      "change24h": 9.58,
-      "volume24h": 7170499.20335,
+      "change24h": 12.42,
+      "volume24h": 7163682.94971,
       "direction": "LONG",
       "score": 3.3,
       "rsi": 77.5,
@@ -1131,8 +1131,8 @@
     {
       "symbol": "AAVEUSDT",
       "price": 132.85,
-      "change24h": 1.82,
-      "volume24h": 5391600.278,
+      "change24h": 2.03,
+      "volume24h": 5380763.846,
       "direction": "LONG",
       "score": 3.2,
       "rsi": 70.5,
@@ -1179,8 +1179,8 @@
     {
       "symbol": "ARBUSDT",
       "price": 0.1358,
-      "change24h": 2.03,
-      "volume24h": 12257902.791584,
+      "change24h": 4.01,
+      "volume24h": 12446688.83312,
       "direction": "LONG",
       "score": 3.12,
       "rsi": 59.4,
@@ -1227,8 +1227,8 @@
     {
       "symbol": "TUTUSDT",
       "price": 0.02717,
-      "change24h": 10.8,
-      "volume24h": 8993574.232,
+      "change24h": 10.62,
+      "volume24h": 9032119.049,
       "direction": "SHORT",
       "score": 3.1,
       "rsi": 45.1,
@@ -1275,8 +1275,8 @@
     {
       "symbol": "DASHUSDT",
       "price": 68.27,
-      "change24h": 22.31,
-      "volume24h": 40982200.8011,
+      "change24h": 21.2,
+      "volume24h": 40988373.9036,
       "direction": "SHORT",
       "score": 3.09,
       "rsi": 48.4,
@@ -1323,8 +1323,8 @@
     {
       "symbol": "ASTERUSDT",
       "price": 0.7811,
-      "change24h": 6.5,
-      "volume24h": 16654143.6181,
+      "change24h": 6.43,
+      "volume24h": 16673867.1939,
       "direction": "SHORT",
       "score": 3.06,
       "rsi": 41.1,
@@ -1371,8 +1371,8 @@
     {
       "symbol": "LINKUSDT",
       "price": 12.035,
-      "change24h": 3.78,
-      "volume24h": 16221721.666,
+      "change24h": 4.09,
+      "volume24h": 16228763.511,
       "direction": "LONG",
       "score": 3.05,
       "rsi": 64.0,
@@ -1419,8 +1419,8 @@
     {
       "symbol": "SOLUSDT",
       "price": 103.703,
-      "change24h": 2.37,
-      "volume24h": 120864880.8607,
+      "change24h": 2.84,
+      "volume24h": 124775191.5215,
       "direction": "LONG",
       "score": 3.0,
       "rsi": 66.3,
@@ -1467,8 +1467,8 @@
     {
       "symbol": "USELESSUSDT",
       "price": 0.2932,
-      "change24h": 23.86,
-      "volume24h": 48151573.74986,
+      "change24h": 20.45,
+      "volume24h": 48120168.50344,
       "direction": "SHORT",
       "score": 2.9,
       "rsi": 67.4,
@@ -1515,8 +1515,8 @@
     {
       "symbol": "AKEUSDT",
       "price": 0.0200807,
-      "change24h": 50.59,
-      "volume24h": 35073873.8192449,
+      "change24h": 54.12,
+      "volume24h": 35220361.2713801,
       "direction": "LONG",
       "score": 2.9,
       "rsi": 61.5,
@@ -1562,8 +1562,8 @@
     {
       "symbol": "XRPUSDT",
       "price": 1.4199,
-      "change24h": 1.95,
-      "volume24h": 245240652.6572,
+      "change24h": 2.19,
+      "volume24h": 245751699.9463,
       "direction": "LONG",
       "score": 2.8,
       "rsi": 66.1,
@@ -1610,8 +1610,8 @@
     {
       "symbol": "MUUSDT",
       "price": 1015.91,
-      "change24h": 1.8,
-      "volume24h": 36737242.073,
+      "change24h": 1.69,
+      "volume24h": 36577566.1834,
       "direction": "LONG",
       "score": 2.8,
       "rsi": 52.2,
@@ -1658,8 +1658,8 @@
     {
       "symbol": "XAUUSDT",
       "price": 4438.97,
-      "change24h": 0.41,
-      "volume24h": 14100193.4312,
+      "change24h": 0.36,
+      "volume24h": 13719581.9416,
       "direction": "SHORT",
       "score": 2.7,
       "rsi": 56.6,
@@ -1705,8 +1705,8 @@
     {
       "symbol": "XAGUSDT",
       "price": 66.27,
-      "change24h": 0.61,
-      "volume24h": 4140404.0093,
+      "change24h": 0.52,
+      "volume24h": 4032764.5561,
       "direction": "SHORT",
       "score": 2.7,
       "rsi": 62.6,
@@ -1752,8 +1752,8 @@
     {
       "symbol": "CYSUSDT",
       "price": 0.23343,
-      "change24h": -4.34,
-      "volume24h": 3981853.99466,
+      "change24h": -4.14,
+      "volume24h": 3978060.79299,
       "direction": "LONG",
       "score": 2.5,
       "rsi": 46.6,
@@ -1799,8 +1799,8 @@
     {
       "symbol": "VELVETUSDT",
       "price": 0.09055,
-      "change24h": 17.68,
-      "volume24h": 3646687.17985,
+      "change24h": 18.37,
+      "volume24h": 3669406.63199,
       "direction": "SHORT",
       "score": 2.4,
       "rsi": 56.8,
@@ -1847,8 +1847,8 @@
     {
       "symbol": "TRUMPUSDT",
       "price": 2.402,
-      "change24h": 6.53,
-      "volume24h": 23655678.7225,
+      "change24h": 6.48,
+      "volume24h": 23662183.5185,
       "direction": "LONG",
       "score": 2.3,
       "rsi": 57.0,
@@ -1894,8 +1894,8 @@
     {
       "symbol": "ZENUSDT",
       "price": 7.086,
-      "change24h": 9.22,
-      "volume24h": 9429420.0581,
+      "change24h": 9.29,
+      "volume24h": 9431304.8288,
       "direction": "SHORT",
       "score": 2.3,
       "rsi": 37.4,
@@ -1936,7 +1936,7 @@
       "tp2_usd": 7.5,
       "skip_reason": "",
       "high24h": 8.068,
-      "low24h": 6.488
+      "low24h": 6.498
     }
   ]
 }
