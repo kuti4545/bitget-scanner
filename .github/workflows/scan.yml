@@ -34,7 +34,7 @@ jobs:
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
           TIMEFRAME: "15m"
           MIN_USDT_VOLUME_24H: "2000000"
-          MAX_SYMBOLS: "80"
+          MAX_SYMBOLS: "150"
           ALERT_SCORE: "7.0"
           MAX_ALERTS_PER_RUN: "3"
           ALERT_COOLDOWN_MIN: "90"
