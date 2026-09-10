@@ -27,7 +27,8 @@
     "FILUSDT:LONG": "2026-09-04T01:15:45.370648+00:00",
     "BNBUSDT:LONG": "2026-09-09T14:48:16.520718+00:00",
     "SNDKUSDT:LONG": "2026-09-08T07:01:51.890404+00:00",
-    "ANTHROPICUSDT:LONG": "2026-09-09T16:48:48.134301+00:00"
+    "ANTHROPICUSDT:LONG": "2026-09-09T16:48:48.134301+00:00",
+    "XAGUSDT:LONG": "2026-09-10T11:35:11.680697+00:00"
   },
   "journal": [
     {
@@ -541,6 +542,22 @@
       "p8h": 2097.6,
       "r2h": 0.42,
       "r8h": -0.43
+    },
+    {
+      "symbol": "XAGUSDT",
+      "direction": "LONG",
+      "score": 8.5,
+      "setup": "DIP",
+      "regime": "RANGE",
+      "h4": "ZAYIF AŞAĞI",
+      "price": 65.92,
+      "sl": 65.5601,
+      "tp1": 66.4599,
+      "ts": "2026-09-10T11:35:11.680722+00:00",
+      "p2h": null,
+      "p8h": null,
+      "r2h": null,
+      "r8h": null
     }
   ],
   "pending": []
