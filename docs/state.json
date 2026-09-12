@@ -31,7 +31,8 @@
     "XAGUSDT:LONG": "2026-09-10T11:35:11.680697+00:00",
     "DRAMUSDT:LONG": "2026-09-10T13:41:26.323596+00:00",
     "ZECUSDT:LONG": "2026-09-10T14:24:33.666553+00:00",
-    "UNIUSDT:SHORT": "2026-09-12T08:33:00.245196+00:00"
+    "UNIUSDT:SHORT": "2026-09-12T08:33:00.245196+00:00",
+    "HYPEUSDT:SHORT": "2026-09-12T12:15:30.031219+00:00"
   },
   "journal": [
     {
@@ -624,6 +625,22 @@
       "p2h": 6.359,
       "p8h": null,
       "r2h": -0.09,
+      "r8h": null
+    },
+    {
+      "symbol": "HYPEUSDT",
+      "direction": "SHORT",
+      "score": 9.0,
+      "setup": "TEPE",
+      "regime": "TREND",
+      "h4": "AŞAĞI",
+      "price": 80.189,
+      "sl": 80.4756,
+      "tp1": 79.7591,
+      "ts": "2026-09-12T12:15:30.031240+00:00",
+      "p2h": null,
+      "p8h": null,
+      "r2h": null,
       "r8h": null
     }
   ],
