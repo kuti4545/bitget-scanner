@@ -32,7 +32,7 @@
     "DRAMUSDT:LONG": "2026-09-10T13:41:26.323596+00:00",
     "ZECUSDT:LONG": "2026-09-10T14:24:33.666553+00:00",
     "UNIUSDT:SHORT": "2026-09-12T08:33:00.245196+00:00",
-    "HYPEUSDT:SHORT": "2026-09-12T12:15:30.031219+00:00"
+    "HYPEUSDT:SHORT": "2026-09-14T04:00:38.829607+00:00"
   },
   "journal": [
     {
@@ -642,6 +642,22 @@
       "p8h": 79.879,
       "r2h": -0.02,
       "r8h": 0.39
+    },
+    {
+      "symbol": "HYPEUSDT",
+      "direction": "SHORT",
+      "score": 7.4,
+      "setup": "TEPE",
+      "regime": "RANGE",
+      "h4": "ZAYIF YUKARI",
+      "price": 79.861,
+      "sl": 80.2157,
+      "tp1": 79.329,
+      "ts": "2026-09-14T04:00:38.829632+00:00",
+      "p2h": null,
+      "p8h": null,
+      "r2h": null,
+      "r8h": null
     }
   ],
   "pending": []
