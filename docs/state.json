@@ -17,7 +17,7 @@
     "SHEINUSDT:SHORT": "2026-09-02T00:50:30.625055+00:00",
     "1000BONKUSDT:LONG": "2026-09-02T01:19:53.992537+00:00",
     "CLUSDT:LONG": "2026-09-04T09:00:54.369314+00:00",
-    "XAGUSDT:SHORT": "2026-09-02T14:32:26.244633+00:00",
+    "XAGUSDT:SHORT": "2026-09-15T13:48:24.398731+00:00",
     "XAUUSDT:SHORT": "2026-09-02T14:45:45.100830+00:00",
     "SKHYNIXUSDT:SHORT": "2026-09-02T20:04:03.033753+00:00",
     "DRAMUSDT:SHORT": "2026-09-02T20:19:25.277562+00:00",
@@ -37,22 +37,6 @@
     "NEARUSDT:LONG": "2026-09-15T08:29:05.588737+00:00"
   },
   "journal": [
-    {
-      "symbol": "SPYUSDT",
-      "direction": "LONG",
-      "score": 7.9,
-      "setup": "DIP",
-      "regime": "TREND",
-      "h4": "YUKARI",
-      "price": 769.0,
-      "sl": 768.715,
-      "tp1": 769.427,
-      "ts": "2026-08-30T23:21:31.324440+00:00",
-      "p2h": 762.49,
-      "p8h": 762.49,
-      "r2h": -0.85,
-      "r8h": -0.85
-    },
     {
       "symbol": "UNIUSDT",
       "direction": "LONG",
@@ -675,6 +659,22 @@
       "p2h": 2.3879,
       "p8h": null,
       "r2h": 0.9,
+      "r8h": null
+    },
+    {
+      "symbol": "XAGUSDT",
+      "direction": "SHORT",
+      "score": 7.5,
+      "setup": "TEPE",
+      "regime": "RANGE",
+      "h4": "ZAYIF YUKARI",
+      "price": 63.83,
+      "sl": 64.055,
+      "tp1": 63.4925,
+      "ts": "2026-09-15T13:48:24.398755+00:00",
+      "p2h": null,
+      "p8h": null,
+      "r2h": null,
       "r8h": null
     }
   ],
