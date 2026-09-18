@@ -8,7 +8,7 @@
     "MUUSDT:SHORT": "2026-08-31T08:35:00.543965+00:00",
     "BCHUSDT:SHORT": "2026-08-31T19:19:12.730184+00:00",
     "KORUUSDT:SHORT": "2026-09-01T00:15:34.849140+00:00",
-    "KORUUSDT:LONG": "2026-09-08T07:18:11.168861+00:00",
+    "KORUUSDT:LONG": "2026-09-18T01:50:07.895183+00:00",
     "PUMPUSDT:SHORT": "2026-09-01T01:24:45.007650+00:00",
     "XMRUSDT:LONG": "2026-09-01T03:12:20.396389+00:00",
     "DOGEUSDT:SHORT": "2026-09-01T06:30:56.423224+00:00",
@@ -37,22 +37,6 @@
     "NEARUSDT:LONG": "2026-09-15T08:29:05.588737+00:00"
   },
   "journal": [
-    {
-      "symbol": "PROMUSDT",
-      "direction": "LONG",
-      "score": 8.2,
-      "setup": "DIP",
-      "regime": "TREND",
-      "h4": "YUKARI",
-      "price": 6.4977,
-      "sl": 6.3107,
-      "tp1": 6.7781,
-      "ts": "2026-08-31T00:26:28.558953+00:00",
-      "p2h": 4.7747,
-      "p8h": 4.7747,
-      "r2h": -26.52,
-      "r8h": -26.52
-    },
     {
       "symbol": "SOXSUSDT",
       "direction": "LONG",
@@ -676,6 +660,22 @@
       "p8h": 57.97,
       "r2h": -1.4,
       "r8h": -1.65
+    },
+    {
+      "symbol": "KORUUSDT",
+      "direction": "LONG",
+      "score": 9.2,
+      "setup": "DIP",
+      "regime": "RANGE",
+      "h4": "ZAYIF YUKARI",
+      "price": 19.78,
+      "sl": 19.6287,
+      "tp1": 20.007,
+      "ts": "2026-09-18T01:50:07.895202+00:00",
+      "p2h": null,
+      "p8h": null,
+      "r2h": null,
+      "r8h": null
     }
   ],
   "pending": []
