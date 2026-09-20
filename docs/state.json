@@ -34,41 +34,11 @@
     "UNIUSDT:SHORT": "2026-09-12T08:33:00.245196+00:00",
     "HYPEUSDT:SHORT": "2026-09-14T04:00:38.829607+00:00",
     "LINKUSDT:SHORT": "2026-09-18T04:41:36.671099+00:00",
-    "NEARUSDT:LONG": "2026-09-15T08:29:05.588737+00:00"
+    "NEARUSDT:LONG": "2026-09-15T08:29:05.588737+00:00",
+    "XRPUSDT:LONG": "2026-09-20T03:35:10.259124+00:00",
+    "ETHUSDT:LONG": "2026-09-20T03:35:10.397761+00:00"
   },
   "journal": [
-    {
-      "symbol": "BCHUSDT",
-      "direction": "SHORT",
-      "score": 7.6,
-      "setup": "TEPE",
-      "regime": "TREND",
-      "h4": "AŞAĞI",
-      "price": 248.15,
-      "sl": 249.726,
-      "tp1": 245.785,
-      "ts": "2026-08-31T19:19:12.730206+00:00",
-      "p2h": 245.88,
-      "p8h": 245.88,
-      "r2h": 0.91,
-      "r8h": 0.91
-    },
-    {
-      "symbol": "KORUUSDT",
-      "direction": "SHORT",
-      "score": 7.48,
-      "setup": "MOMENTUM",
-      "regime": "RANGE",
-      "h4": "ZAYIF AŞAĞI",
-      "price": 20.795,
-      "sl": 21.1541,
-      "tp1": 20.2945,
-      "ts": "2026-09-01T00:15:34.849164+00:00",
-      "p2h": 19.084,
-      "p8h": 19.084,
-      "r2h": 8.23,
-      "r8h": 8.23
-    },
     {
       "symbol": "KORUUSDT",
       "direction": "LONG",
@@ -676,6 +646,38 @@
       "p8h": 11.845,
       "r2h": -1.04,
       "r8h": -1.39
+    },
+    {
+      "symbol": "XRPUSDT",
+      "direction": "LONG",
+      "score": 7.6,
+      "setup": "DIP",
+      "regime": "TREND",
+      "h4": "YUKARI",
+      "price": 1.3775,
+      "sl": 1.3647,
+      "tp1": 1.3966,
+      "ts": "2026-09-20T03:35:10.259146+00:00",
+      "p2h": null,
+      "p8h": null,
+      "r2h": null,
+      "r8h": null
+    },
+    {
+      "symbol": "ETHUSDT",
+      "direction": "LONG",
+      "score": 7.0,
+      "setup": "DIP",
+      "regime": "TREND",
+      "h4": "YUKARI",
+      "price": 2584.08,
+      "sl": 2559.3,
+      "tp1": 2621.26,
+      "ts": "2026-09-20T03:35:10.397782+00:00",
+      "p2h": null,
+      "p8h": null,
+      "r2h": null,
+      "r8h": null
     }
   ],
   "pending": []
