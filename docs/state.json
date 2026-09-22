@@ -36,25 +36,10 @@
     "LINKUSDT:SHORT": "2026-09-18T04:41:36.671099+00:00",
     "NEARUSDT:LONG": "2026-09-15T08:29:05.588737+00:00",
     "XRPUSDT:LONG": "2026-09-20T03:35:10.259124+00:00",
-    "ETHUSDT:LONG": "2026-09-20T03:35:10.397761+00:00"
+    "ETHUSDT:LONG": "2026-09-20T03:35:10.397761+00:00",
+    "AVAXUSDT:LONG": "2026-09-22T05:52:55.365236+00:00"
   },
   "journal": [
-    {
-      "symbol": "KORUUSDT",
-      "direction": "LONG",
-      "score": 8.1,
-      "setup": "DIP",
-      "regime": "TREND",
-      "h4": "YUKARI",
-      "price": 21.326,
-      "sl": 20.7373,
-      "tp1": 22.1614,
-      "ts": "2026-09-01T00:52:38.516334+00:00",
-      "p2h": 19.088,
-      "p8h": 19.088,
-      "r2h": -10.49,
-      "r8h": -10.49
-    },
     {
       "symbol": "PUMPUSDT",
       "direction": "SHORT",
@@ -678,6 +663,22 @@
       "p8h": 2572.04,
       "r2h": -0.26,
       "r8h": -0.47
+    },
+    {
+      "symbol": "AVAXUSDT",
+      "direction": "LONG",
+      "score": 8.2,
+      "setup": "DIP",
+      "regime": "YOK",
+      "h4": "YOK",
+      "price": 10.652,
+      "sl": 10.4941,
+      "tp1": 10.8888,
+      "ts": "2026-09-22T05:52:55.365260+00:00",
+      "p2h": null,
+      "p8h": null,
+      "r2h": null,
+      "r8h": null
     }
   ],
   "pending": []
