@@ -39,25 +39,10 @@
     "ETHUSDT:LONG": "2026-09-20T03:35:10.397761+00:00",
     "AVAXUSDT:LONG": "2026-09-23T13:53:37.677464+00:00",
     "XLMUSDT:LONG": "2026-09-23T12:51:43.969487+00:00",
-    "HBARUSDT:LONG": "2026-09-23T13:01:07.698503+00:00"
+    "HBARUSDT:LONG": "2026-09-23T13:01:07.698503+00:00",
+    "AAVEUSDT:LONG": "2026-09-23T16:27:52.903493+00:00"
   },
   "journal": [
-    {
-      "symbol": "SKHYUSDT",
-      "direction": "LONG",
-      "score": 7.4,
-      "setup": "DIP",
-      "regime": "RANGE",
-      "h4": "ZAYIF AŞAĞI",
-      "price": 161.59,
-      "sl": 160.527,
-      "tp1": 163.184,
-      "ts": "2026-09-01T09:53:32.821113+00:00",
-      "p2h": 159.88,
-      "p8h": 159.88,
-      "r2h": -1.06,
-      "r8h": -1.06
-    },
     {
       "symbol": "SHEINUSDT",
       "direction": "SHORT",
@@ -680,6 +665,22 @@
       "p2h": 10.357,
       "p8h": null,
       "r2h": -2.8,
+      "r8h": null
+    },
+    {
+      "symbol": "AAVEUSDT",
+      "direction": "LONG",
+      "score": 7.9,
+      "setup": "DIP",
+      "regime": "RANGE",
+      "h4": "ZAYIF AŞAĞI",
+      "price": 139.62,
+      "sl": 136.637,
+      "tp1": 144.094,
+      "ts": "2026-09-23T16:27:52.903518+00:00",
+      "p2h": null,
+      "p8h": null,
+      "r2h": null,
       "r8h": null
     }
   ],
