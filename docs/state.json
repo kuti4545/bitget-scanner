@@ -37,25 +37,10 @@
     "NEARUSDT:LONG": "2026-09-15T08:29:05.588737+00:00",
     "XRPUSDT:LONG": "2026-09-20T03:35:10.259124+00:00",
     "ETHUSDT:LONG": "2026-09-20T03:35:10.397761+00:00",
-    "AVAXUSDT:LONG": "2026-09-22T05:52:55.365236+00:00"
+    "AVAXUSDT:LONG": "2026-09-22T05:52:55.365236+00:00",
+    "XLMUSDT:LONG": "2026-09-23T12:51:43.969487+00:00"
   },
   "journal": [
-    {
-      "symbol": "XMRUSDT",
-      "direction": "LONG",
-      "score": 7.2,
-      "setup": "DIP",
-      "regime": "TREND",
-      "h4": "YUKARI",
-      "price": 515.75,
-      "sl": 504.529,
-      "tp1": 532.581,
-      "ts": "2026-09-01T03:12:20.396413+00:00",
-      "p2h": 505.55,
-      "p8h": 505.55,
-      "r2h": -1.98,
-      "r8h": -1.98
-    },
     {
       "symbol": "DOGEUSDT",
       "direction": "SHORT",
@@ -679,6 +664,22 @@
       "p8h": 63.05,
       "r2h": 0.14,
       "r8h": 1.02
+    },
+    {
+      "symbol": "XLMUSDT",
+      "direction": "LONG",
+      "score": 7.4,
+      "setup": "DIP",
+      "regime": "TREND",
+      "h4": "YUKARI",
+      "price": 0.21313,
+      "sl": 0.212261,
+      "tp1": 0.214433,
+      "ts": "2026-09-23T12:51:43.969510+00:00",
+      "p2h": null,
+      "p8h": null,
+      "r2h": null,
+      "r8h": null
     }
   ],
   "pending": []
