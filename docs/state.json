@@ -38,25 +38,10 @@
     "XRPUSDT:LONG": "2026-09-20T03:35:10.259124+00:00",
     "ETHUSDT:LONG": "2026-09-20T03:35:10.397761+00:00",
     "AVAXUSDT:LONG": "2026-09-22T05:52:55.365236+00:00",
-    "XLMUSDT:LONG": "2026-09-23T12:51:43.969487+00:00"
+    "XLMUSDT:LONG": "2026-09-23T12:51:43.969487+00:00",
+    "HBARUSDT:LONG": "2026-09-23T13:01:07.698503+00:00"
   },
   "journal": [
-    {
-      "symbol": "DOGEUSDT",
-      "direction": "SHORT",
-      "score": 7.8,
-      "setup": "TEPE",
-      "regime": "TREND",
-      "h4": "AŞAĞI",
-      "price": 0.08354,
-      "sl": 0.083967,
-      "tp1": 0.082899,
-      "ts": "2026-09-01T06:30:56.423250+00:00",
-      "p2h": 0.08164,
-      "p8h": 0.08164,
-      "r2h": 2.27,
-      "r8h": 2.27
-    },
     {
       "symbol": "ONDOUSDT",
       "direction": "SHORT",
@@ -676,6 +661,22 @@
       "sl": 0.212261,
       "tp1": 0.214433,
       "ts": "2026-09-23T12:51:43.969510+00:00",
+      "p2h": null,
+      "p8h": null,
+      "r2h": null,
+      "r8h": null
+    },
+    {
+      "symbol": "HBARUSDT",
+      "direction": "LONG",
+      "score": 8.1,
+      "setup": "DIP",
+      "regime": "TREND",
+      "h4": "YUKARI",
+      "price": 0.0948,
+      "sl": 0.094241,
+      "tp1": 0.095639,
+      "ts": "2026-09-23T13:01:07.698514+00:00",
       "p2h": null,
       "p8h": null,
       "r2h": null,
