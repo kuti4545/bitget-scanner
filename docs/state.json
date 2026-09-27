@@ -30,7 +30,7 @@
     "ANTHROPICUSDT:LONG": "2026-09-09T16:48:48.134301+00:00",
     "XAGUSDT:LONG": "2026-09-10T11:35:11.680697+00:00",
     "DRAMUSDT:LONG": "2026-09-10T13:41:26.323596+00:00",
-    "ZECUSDT:LONG": "2026-09-10T14:24:33.666553+00:00",
+    "ZECUSDT:LONG": "2026-09-27T16:10:54.425412+00:00",
     "UNIUSDT:SHORT": "2026-09-12T08:33:00.245196+00:00",
     "HYPEUSDT:SHORT": "2026-09-14T04:00:38.829607+00:00",
     "LINKUSDT:SHORT": "2026-09-18T04:41:36.671099+00:00",
@@ -44,22 +44,6 @@
     "SNXXUSDT:SHORT": "2026-09-25T09:07:03.105273+00:00"
   },
   "journal": [
-    {
-      "symbol": "1000BONKUSDT",
-      "direction": "LONG",
-      "score": 7.44,
-      "setup": "MOMENTUM",
-      "regime": "RANGE",
-      "h4": "ZAYIF AŞAĞI",
-      "price": 0.002975,
-      "sl": 0.00293032,
-      "tp1": 0.00303634,
-      "ts": "2026-09-02T01:19:53.992553+00:00",
-      "p2h": 0.002971,
-      "p8h": 0.002982,
-      "r2h": -0.13,
-      "r8h": 0.24
-    },
     {
       "symbol": "CLUSDT",
       "direction": "LONG",
@@ -683,6 +667,22 @@
       "p8h": 17.604,
       "r2h": 0.61,
       "r8h": 1.82
+    },
+    {
+      "symbol": "ZECUSDT",
+      "direction": "LONG",
+      "score": 8.8,
+      "setup": "DIP",
+      "regime": "TREND",
+      "h4": "YUKARI",
+      "price": 1582.5,
+      "sl": 1573.93,
+      "tp1": 1595.36,
+      "ts": "2026-09-27T16:10:54.425435+00:00",
+      "p2h": null,
+      "p8h": null,
+      "r2h": null,
+      "r8h": null
     }
   ],
   "pending": []
