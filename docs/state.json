@@ -21,7 +21,7 @@
     "XAUUSDT:SHORT": "2026-09-02T14:45:45.100830+00:00",
     "SKHYNIXUSDT:SHORT": "2026-09-02T20:04:03.033753+00:00",
     "DRAMUSDT:SHORT": "2026-09-22T20:03:03.235706+00:00",
-    "WLDUSDT:SHORT": "2026-09-03T00:50:46.459410+00:00",
+    "WLDUSDT:SHORT": "2026-09-29T08:01:38.795552+00:00",
     "BZUSDT:LONG": "2026-09-11T10:24:00.656282+00:00",
     "BTWUSDT:LONG": "2026-09-03T08:45:46.533307+00:00",
     "FILUSDT:LONG": "2026-09-04T01:15:45.370648+00:00",
@@ -44,22 +44,6 @@
     "SNXXUSDT:SHORT": "2026-09-25T09:07:03.105273+00:00"
   },
   "journal": [
-    {
-      "symbol": "CLUSDT",
-      "direction": "LONG",
-      "score": 7.8,
-      "setup": "DIP",
-      "regime": "TREND",
-      "h4": "YUKARI",
-      "price": 90.172,
-      "sl": 89.7554,
-      "tp1": 90.797,
-      "ts": "2026-09-02T08:31:35.571381+00:00",
-      "p2h": 91.552,
-      "p8h": 91.552,
-      "r2h": 1.53,
-      "r8h": 1.53
-    },
     {
       "symbol": "XAGUSDT",
       "direction": "SHORT",
@@ -683,6 +667,22 @@
       "p8h": 1587.74,
       "r2h": 0.35,
       "r8h": 0.33
+    },
+    {
+      "symbol": "WLDUSDT",
+      "direction": "SHORT",
+      "score": 7.1,
+      "setup": "TEPE",
+      "regime": "YOK",
+      "h4": "YOK",
+      "price": 0.5028,
+      "sl": 0.508696,
+      "tp1": 0.493956,
+      "ts": "2026-09-29T08:01:38.795576+00:00",
+      "p2h": null,
+      "p8h": null,
+      "r2h": null,
+      "r8h": null
     }
   ],
   "pending": []
