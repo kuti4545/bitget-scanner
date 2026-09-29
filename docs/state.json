@@ -41,25 +41,10 @@
     "XLMUSDT:LONG": "2026-09-23T12:51:43.969487+00:00",
     "HBARUSDT:LONG": "2026-09-23T13:01:07.698503+00:00",
     "AAVEUSDT:LONG": "2026-09-23T16:27:52.903493+00:00",
-    "SNXXUSDT:SHORT": "2026-09-25T09:07:03.105273+00:00"
+    "SNXXUSDT:SHORT": "2026-09-25T09:07:03.105273+00:00",
+    "ARBUSDT:SHORT": "2026-09-29T12:36:55.016382+00:00"
   },
   "journal": [
-    {
-      "symbol": "XAUUSDT",
-      "direction": "SHORT",
-      "score": 8.6,
-      "setup": "TEPE",
-      "regime": "TREND",
-      "h4": "AŞAĞI",
-      "price": 4391.0,
-      "sl": 4404.74,
-      "tp1": 4370.4,
-      "ts": "2026-09-02T14:45:45.100849+00:00",
-      "p2h": 4434.96,
-      "p8h": 4434.96,
-      "r2h": -1.0,
-      "r8h": -1.0
-    },
     {
       "symbol": "SKHYNIXUSDT",
       "direction": "SHORT",
@@ -682,6 +667,22 @@
       "p2h": 96.77,
       "p8h": null,
       "r2h": -1.15,
+      "r8h": null
+    },
+    {
+      "symbol": "ARBUSDT",
+      "direction": "SHORT",
+      "score": 7.0,
+      "setup": "TEPE",
+      "regime": "YOK",
+      "h4": "YOK",
+      "price": 0.21336,
+      "sl": 0.21671,
+      "tp1": 0.208335,
+      "ts": "2026-09-29T12:36:55.016405+00:00",
+      "p2h": null,
+      "p8h": null,
+      "r2h": null,
       "r8h": null
     }
   ],
