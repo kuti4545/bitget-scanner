@@ -43,25 +43,10 @@
     "AAVEUSDT:LONG": "2026-09-23T16:27:52.903493+00:00",
     "SNXXUSDT:SHORT": "2026-09-25T09:07:03.105273+00:00",
     "ARBUSDT:SHORT": "2026-09-29T12:36:55.016382+00:00",
-    "BZUSDT:SHORT": "2026-09-30T15:19:09.092729+00:00"
+    "BZUSDT:SHORT": "2026-09-30T15:19:09.092729+00:00",
+    "CLUSDT:SHORT": "2026-10-01T09:11:48.389340+00:00"
   },
   "journal": [
-    {
-      "symbol": "DRAMUSDT",
-      "direction": "SHORT",
-      "score": 9.6,
-      "setup": "TEPE",
-      "regime": "TREND",
-      "h4": "AŞAĞI",
-      "price": 56.12,
-      "sl": 56.4321,
-      "tp1": 55.6519,
-      "ts": "2026-09-02T20:19:25.277588+00:00",
-      "p2h": 55.27,
-      "p8h": 55.27,
-      "r2h": 1.51,
-      "r8h": 1.51
-    },
     {
       "symbol": "WLDUSDT",
       "direction": "SHORT",
@@ -685,6 +670,22 @@
       "p8h": 97.62,
       "r2h": 0.81,
       "r8h": 1.26
+    },
+    {
+      "symbol": "CLUSDT",
+      "direction": "SHORT",
+      "score": 7.6,
+      "setup": "TEPE",
+      "regime": "RANGE",
+      "h4": "ZAYIF YUKARI",
+      "price": 92.631,
+      "sl": 92.9994,
+      "tp1": 92.0784,
+      "ts": "2026-10-01T09:11:48.389363+00:00",
+      "p2h": null,
+      "p8h": null,
+      "r2h": null,
+      "r8h": null
     }
   ],
   "pending": []
